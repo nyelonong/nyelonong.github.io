@@ -19,22 +19,26 @@ In my machine, Ubuntu 14.04, the latest ruby I found is ruby1.9.1. You need ruby
 ```
 
 You need to run this to execute gvm from anywhere
+
 ``` sh
     $ source /home/yourhome/.rvm/scripts/rvm
 ```
 
 ### Installing Ruby
 Install all requirements to install ruby
+
 ``` sh
     $ rvm requirements
 ```
 
 Show all available ruby package
+
 ``` sh
     $ rvm list known
 ```
 
 I choose ruby2.2, so just run
+
 ``` sh
     $ rvm install 2.2
 ```
@@ -45,6 +49,7 @@ I choose ruby2.2, so just run
 ```
 
 If you want to linked up to your github page, create a repository, clone it, and change directory to your cloned repository.
+
 ``` sh
     $ git clone git@github.com:yourusername/yourrepo.git
 ```
@@ -53,6 +58,7 @@ If you want to linked up to your github page, create a repository, clone it, and
 ```
 
 Create a new jekyll site. Use `--force` in case your directory is not empty.
+
 ``` sh
     $ jekyll new . --force
 ```
@@ -60,4 +66,4 @@ Create a new jekyll site. Use `--force` in case your directory is not empty.
     $ jekyll serve
 ```
 
-That's it. after you run `jekyll serve`, move to your browser and open `localhost:4000`. Happy Blogging!
+That's it. Move to your browser and open `localhost:4000`. Happy Blogging!
