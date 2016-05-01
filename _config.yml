@@ -3,8 +3,7 @@ name:               "Zaki"
 home:               "~/"
 description:        "daily blog"
 
-# jekyll-seo-tag, see: http://www.rubydoc.info/gems/jekyll-seo-tag/1.2.0
-url:                "//nyelonong.github.io"
+comments:           true
 
 # URL
 baseurl:            ""
@@ -37,6 +36,3 @@ defaults:
       type:         "posts"
     values:
       layout:       "post"
-
-gems:
-  - jekyll-seo-tag
