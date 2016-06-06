@@ -4,7 +4,7 @@ title:  "Marhaban Ya Ramadhan"
 date:   2016-06-05 16:11:39 +0700
 categories: blog
 ---
-Welcome to the holy month. When there is so many advantage we can get as human being who believed.
+Welcome to the holy month. When there are so many advantages we can get as human being who believed.
 
 In this month, Allah s.w.t [command us](http://quran.com/2/183):
 
