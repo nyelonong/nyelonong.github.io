@@ -1,0 +1,20 @@
+---
+layout: post
+title:  "Iqro'"
+date:   2017-01-06 23:42:39 +0700
+categories: blog
+---
+Hi Internet.
+
+Lately I feel uncomfortable with some people's act. People being racist everywhere, and it's hurt. I promise will not be racist anymore.
+
+In the Internet age, you can get anything; even things you do not want see. And vice versa, you can give anything to others; even things that are not wanted.
+
+As the [first verse Allah revealed](https://quran.com/96)
+```
+اقْرَأْ بِاسْمِ رَبِّكَ الَّذِي خَلَقَ
+```
+
+It is clear that Allah wants us to read, seek knowledge.
+In this rainy night, I made a [simple cli application](https://github.com/nyelonong/quran) to read the Qur'an
+![quran]({{ site.baseurl }}/images/quran.png)
