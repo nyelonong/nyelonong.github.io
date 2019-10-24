@@ -1,0 +1,138 @@
+---
+layout: post
+title:  "Unit Test: Is It Worth Your Time ?"
+date:   2019-10-25 00:05:35 +0700
+categories: blog
+---
+
+![unit-test]({{ site.baseurl }}/images/def--unit-test.png)
+Source: [UnitTest](http://wiki.c2.com/?UnitTest).
+
+So it is like test your code with another code. But, do I really need unit test? Is it worth my time? Or when I only support legacy code that does not has unit test, why should I build one?
+
+There are many reasons for us not to write unit test. But in fact, nobody can write *bug-free* code. Unit test gives us a high confidence in our code.
+
+I will use Go for the implementation. It is very easy to write unit test in Go. Go has a built-in testing command called {% highlight bash %} go test {% endhighlight %} and a package [testing](https://golang.org/pkg/testing) which combined to give a minimal but complete testing experience.
+
+Let's say we have simple `add` function in file `add.go`.
+
+{% highlight go %}
+package main
+
+func Add(a, b int) int {  
+    return a + b
+}
+
+func main() {  
+    Add(3, 2)
+}
+{% endhighlight %}
+
+The requirements to write unit test in Go:
+
+* The file must be named `xxx_test.go`, `xxx` is your filename that you want to test..
+* The function name begin with `Test` and followed by the function name you want to test start with capital letter.
+* The only parameter needed is `t *testing.T`
+
+![testing.T]({{ site.baseurl }}/images/def--T.png)
+Source: [T](https://golang.org/pkg/testing/#T).
+
+Here is `add_test.go`, unit test for `add.go`
+{% highlight go %}
+package main
+
+import "testing"
+
+func TestAdd(t *testing.T) {
+	result := Add(3, 2)
+	if result != 5 {
+		t.Errorf("Add expect %d but got %d", 5, result)
+	}
+}
+{% endhighlight %}
+
+And the result will be
+
+{% highlight bash %}
+$ go test
+PASS
+ok  	path/to/your/package	0.007s
+{% endhighlight %}
+
+That means the test case you write above is passed. When someone in the future changes your function, your unit test will be broken. Let's change the `Add` function.
+
+{% highlight go %}
+func Add(a, b int) int {  
+    return a - b
+}
+{% endhighlight %}
+
+When you run your unit test, it will be
+{% highlight bash %}
+$ go test
+--- FAIL: TestAdd (0.00s)
+	add_test.go:8: Add expect 5 but got 1
+FAIL
+exit status 1
+FAIL  	path/to/your/package	0.007s
+{% endhighlight %}
+
+The point is, the only reason we change the behavior of a function is when that function has a bug. In this case, unit test has saved our life before it's too late.
+
+Sometimes we need more than one test case to feel safe. We can improve our code this way
+
+{% highlight go %}
+package main
+
+import "testing"
+
+func TestAdd(t *testing.T) {
+	testCases := []struct {
+		input1, input2, expected int
+	}{
+		{3, 2, 5},
+		{1, 1, 2},
+		{123, 456, 579},
+	}
+
+	for _, testCase := range testCases {
+		result := Add(testCase.input1, testCase.input2)
+		if result != testCase.expected {
+			t.Errorf("Add expect %d but got %d", testCase.expected, result)
+		}
+	}
+}
+{% endhighlight %}
+
+Now, the problem is how do we know that our unit test has covered *all* the code. 
+
+![code-coverage]({{ site.baseurl }}/images/def--code-coverage.png)
+Source: [Code Coverage](http://wiki.c2.com/?CodeCoverage).
+
+Code coverage in Go is a statement coverage. That means the statement percentage which covered by unit test. `go test` has built in `cover` function to know unit test coverage.
+
+{% highlight bash %}
+$ go test -cover
+PASS
+coverage: 50.0% of statements
+ok  	path/to/your/package	0.007s
+{% endhighlight %}
+
+It says 50.0% coverage of statement. But, how do we know which statement that is missed from unit test? Luckily again, Go has numerous opensource tools by communities. In this case, we use [gocov-html](https://github.com/matm/gocov-html). It will give us beautiful html output of the `go test -cover` result.
+
+You need to install `gocov` and `gocov-html` first.
+
+{% highlight bash %}
+$ go get github.com/axw/gocov/gocov
+$ go get -u gopkg.in/matm/v1/gocov-html
+{% endhighlight %}
+
+For the usage:
+{% highlight bash %}
+$ gocov test | gocov-html > add.html
+ok  	path/to/your/package	0.006s    coverage: 50.0% of statements
+{% endhighlight %}
+
+![gocov-result]({{ site.baseurl }}/images/gocov-html-result.png)
+
+The goal is to get code coverage close to 100%. Means that you have guaranteed that your code runs as you're desired, not afraid of someone will change your function behavior. It is really worth your time. Happy coding!
