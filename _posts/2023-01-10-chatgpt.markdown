@@ -1,0 +1,19 @@
+---
+layout: post
+title:  "Introducing ChatGPT: The New Era of Conversational AI"
+date:   2023-01-10 10:45:35 +0700
+categories: blog
+---
+
+Have you ever wished that you could have a conversation with a computer that feels just like talking to a real person? That's exactly what ChatGPT, the newest addition to the GPT family, allows you to do.
+
+For those unfamiliar with GPT (Generative Pre-trained Transformer), it is a state-of-the-art language processing AI developed by OpenAI. It has the ability to generate human-like text, complete tasks, and even write articles and stories. And now, with ChatGPT, you can have a natural and intuitive conversation with the AI just as you would with a friend or colleague.
+
+One of the most impressive features of ChatGPT is its ability to understand and respond to context. This means that it can carry on a conversation that flows naturally, without the need for explicit prompts or commands. It can also remember previous statements and use that information to inform its responses, further enhancing the illusion of a real conversation.
+
+But ChatGPT isn't just a novelty - it has a variety of practical applications as well. For example, it can be used as a customer service chatbot, helping to answer frequently asked questions and resolve issues for customers. It can also assist with tasks like scheduling and data entry, freeing up time for human employees to focus on more complex tasks.
+
+Overall, ChatGPT is an exciting development in the world of conversational AI and has the potential to revolutionize the way we interact with computers. We can't wait to see all the creative ways it will be used in the future.
+
+A note from ChatGPT: this is a ChatGPT blog post
+![chatgpt]({{ site.baseurl }}/images/chatgpt.png)
