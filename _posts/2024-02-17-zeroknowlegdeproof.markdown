@@ -15,18 +15,14 @@ Zero-knowledge proofs are cryptographic techniques that allow one party (the pro
 ### Example
 
 1. Proofer and Verifier choose two large prime integers p and q and compute the product $$ n = pq $$
-
 2. Proofer create secret numbers coprime to n $$ s_{1},\cdots ,s_{k} $$
-
-3. Verifier chooses numbers $$ a_{1},\cdots ,a_{k} $$ where $ a_{i} $ equals 0 or 1
-
+3. Verifier chooses numbers $$ a_{1},\cdots ,a_{k} $$ where $$ a_{i} $$ equals 0 or 1
 4. Proofer chooses a random integer r, computes x and send it to Verifier $$ {\displaystyle s\cdot x\equiv r^{2}{\pmod {n}}} $$
-
-5. Proofer computes y and send it to Verifier $$ y\equiv r\cdot (s_{1}^{{a_{1}}}s_{2}^{{a_{2}}}\cdots s_{k}^{{a_{k}}}){\pmod  {n}} $$
-
+5. Proofer computes y and send it to Verifier $$ y\equiv r\cdot (s_{1}^{a_{1}}s_{2}^{a_{2}}\cdots s_{k}^{a_{k}}){\pmod  {n}} $$
 6. Proofer computes v and send it to Verifier $$ v_{i}\equiv s_{i}^{{2}}{\pmod  {n}} $$ 
-
 7. Verifier checks that $$ {\displaystyle y^{2}{\pmod {n}}\equiv \pm \,xv_{1}^{a_{1}}v_{2}^{a_{2}}\cdots v_{k}^{a_{k}}{\pmod {n}}} $$ and that $$ {\displaystyle x\neq 0.} $$
+
+Here is the example code in Go
 
 ```go
 package main
