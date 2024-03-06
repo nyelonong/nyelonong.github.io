@@ -20,7 +20,7 @@ nav:
 
 # Sass
 sass:
-  style:            :compressed
+  style:            compressed
 
 # Scopes
 defaults:
