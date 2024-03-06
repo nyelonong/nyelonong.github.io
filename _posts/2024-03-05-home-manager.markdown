@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Unleashing Productivity: Managing Development Across Multiple Machines with nix and home-manager"
-date:   2024-04-05 10:45:35 +0700
+date:   2024-03-05 10:45:35 +0700
 categories: blog
 ---
 
