@@ -1,0 +1,289 @@
+---
+layout: post
+title:  "Hashmap Is Not Really O(1)"
+date:   2025-11-15 08:56:35 +0700
+categories: blog
+---
+
+*Let’s talk honestly about one of the biggest myths in computer science.*
+
+***
+
+![O(1)]({{ site.baseurl }}/images/O1.png)
+
+Imagine you're in a job interview and the interviewer asks:
+
+> "What’s the time complexity of a hashmap lookup?"
+
+And like everyone else, you answer:
+
+> "O(1) on average."
+
+Seems correct, right? </br>
+Well… not really.
+
+Let’s break the illusion.
+
+# 0. What Exactly Is a Hashmap?
+A hashmap (or hash table) is a data structure that stores key -> value pairs and uses a hash function to decide where each key should live in memory.
+
+Conceptually, it looks like this:
+
+```hash(key) -> bucket index -> value```
+
+```
+    +-------------------------------+
+    |        hash(key)              |   <- O(len(key))
+    +-------------------------------+
+                 |
+                 v
++-----------------------------------------+
+| bucket_index = hash & (capacity - 1)    |
++-----------------------------------------+
+                 |
+                 v
++-----------------------------------------+
+|      load bucket pointer (L1/L2/L3)     |
++-----------------------------------------+
+                 |
+                 v
++-------------------------------------------+
+| compare tophash[] | load keys | load vals |
+| ----------------------------------------- |
+| maybe go into overflow buckets...         |
++-------------------------------------------+
+```
+
+Its design aims to make:
+- insert
+- lookup
+- delete
+
+…run in “constant time,” hence the famous:
+
+Hashmap operations are **O(1)**. This is true in an academic sense, but misleading in the real world.
+
+Let’s break it down.
+
+## 0.1 Core Structure
+A hash map consists of two main components:
+
+### The bucket array
+This is an array where each element points to a *"bucket"*.
+
+The array length is usually a power of two: </br>
+8, 16, 32, 64, … </br>
+This allows faster hashing using bitwise operations.
+
+Example (size = 8):
+```
+index 0: bucket pointer
+index 1: bucket pointer
+index 2: bucket pointer
+...
+index 7: bucket pointer
+```
+
+### Bucket / Entry list
+A bucket may contain:
+- 0 entries
+- 1 entry
+- multiple entries (if collisions occur)
+
+A typical entry structure:
+```
+entry {
+    tophash
+    key
+    value
+    overflow
+}
+```
+## 0.2 How Lookup Works
+Suppose you do:
+```go
+value := m["hello"]
+```
+Internally, It will performs:
+
+### Step 1 - Compute hash(key)
+Hash function:
+```go
+hash = algo.somehashfunction("hello")
+```
+Example:
+```go
+hash = 0xFA9320AABBCCDDEE
+```
+
+### Step 2 - Compute bucket index
+Assume the map has **8 buckets (2^3)**:
+
+```
+bucketMask = bucketCount - 1 = 7 = 0x000...0007
+```
+
+
+Then:
+```
+index = hash & bucketMask
+```
+
+Example:
+```
+hash   = FA9320AABBCCDDEE
+mask   = 0000000000000007
+-------------------------
+index = 0x6 (decimal 6)
+```
+
+So the key will be searched in bucket **#6**.
+
+>**No memory** access has happened yet.</br>
+>This is all done in **CPU registers**.
+
+### Step 3 - Load the Bucket Pointer
+We stores an array of bucket pointers:
+```go
+bucketPtr := h.buckets[index]
+```
+
+Assume key always string and value always int. </br>
+This points to a bucket struct that looks like:
+```go
+type bucket struct {
+	tophash [8]uint8
+	keys    [8]string
+	values  [8]int
+	overflow *bucket
+}
+```
+
+Now it will inspect the tophash.
+
+### Step 4 - Use High Bits of the Hash (tophash) to Filter Slots
+Extracts the top 8 bits of the hash:
+```
+top = hash >> (64 - 8)    // highest 8 bits
+```
+
+Example:
+```
+hash = FA9320AABBCCDDEE
+top  = FA
+```
+
+Then check:
+```go
+bucket.tophash[i] == top ?
+```
+If it matches -> compare actual key.
+
+```go
+bucket.key[i] == "hello" ?
+```
+
+If not -> skip slot.
+
+This drastically accelerates lookup.
+
+### Step 5 - If No Match Found, Follow Overflow Buckets
+If none of the 8 slots in the bucket match:
+
+```
+bucket = bucket.overflow
+repeat...
+```
+
+```go
+key := "hello"
+tophash := 0xFA
+
+for each overflowBucket in chain:
+    for i in 0..7:
+        if overflowBucket.tophash[i] == tophash and overflowBucket.key[i] == key:
+            return overflowBucket.values[i], true
+```
+
+## 0.3 How Insert Works
+We follow the same process until we got the **bucket index (Step 2)**.
+
+### Step 3 - Place entry into bucket
+```go
+bucket := buckets[bucketIndex]
+
+// Step 1: check for empty slot in bucket
+for i in 0..7:
+    if bucket.tophash[i] == empty:
+        use slot i
+        return
+
+// Step 2: if bucket is full, look for space in overflow chain
+for each overflowBucket in chain:
+    for i in 0..7:
+        if overflowBucket.tophash[i] == empty:
+            use this slot
+            return
+
+// Step 3: if everything full, create new overflow bucket
+newOverflow := new(bucket)
+lastOverflow.overflow = newOverflow
+
+use newOverflow.slot[0]
+```
+
+Some programminng languages use linked list (**O(n)**) or balanced trees (**O(log n)**) to handle the collison
+
+#### New Overflow Bucket
+Allocates an overflow bucket and inserts the new key/value into that overflow bucket.
+
+Criteria ```Load factor = number of entries / number of buckets```
+
+Example:
+```
+8 buckets, 6 entries -> load factor = 0.75
+```
+
+When load factor exceeds a threshold (usually 75%), the hash map:
+- resizes (doubles the capacity)
+- rehashes all entries
+
+Example:
+- 8 -> 16 buckets to manage bitwise calculation
+- all entries recompute their index
+- placed into the new array
+
+This operation is expensive (**O(n)**), but infrequent.
+
+```
+Latency
+  ^
+  |          spikes due to resize
+  |               /\
+  |              /  \
+  |    _________/    \__________
+  |   /
+  +--+-----------------------------------> Number of keys
+     |
+   O(1-ish)
+```
+
+# 1. Hashmaps Are Only O(1) Under Perfect Assumptions
+The textbooks assume:
+- perfect hash distribution
+- no collisions
+- infinite memory
+- no CPU cache hierarchy
+- constant-time memory access
+- uniform allocator performance
+- no resizing
+- no hashing cost
+- no adversarial input
+
+That world doesn’t exist.
+
+On real CPUs, real RAM, and real workloads: *Hashmaps behave like O(1) amortized average-time data structures.*
+
+> Average lookup: **O(1)** </br>
+> Worst case:     **O(n)**
+
