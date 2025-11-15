@@ -167,6 +167,66 @@ Extracts the top 8 bits of the hash:
 top = hash >> (64 - 8)    // highest 8 bits
 ```
 
+This is the key speed trick:
+- You **don’t** compare keys[i] for every i
+- You only do a heavy key == searchKey check when tophash[i] matches top
+
+For string / interface keys, this *avoids tons of expensive comparisons*.
+
+This so fast in practice becuase it is cache-line friendly
+- tophash[8] is only 8 bytes
+- it sits at the very beginning of the bucket struct
+- 8 bytes fits comfortably inside a single 64-byte cache line
+
+When CPU loads the bucket, those 8 tophash bytes come in one shot.
+
+Then lookup does:
+```go
+for i in 0..7:
+    compare 1-byte tophash[i] with `top`
+```
+
+So the first filtering pass:
+- hits L1 cache
+- is purely register + byte-compare operations
+- very few branches
+
+**Only** when a tophash matches do we touch the actual key (which may be a pointer to a string on heap).
+- Much less random memory access
+- Much fewer string comparisons
+- Way more cache hits
+
+```
++----------------+--------------+
+| Level          | Latency      |
++----------------+--------------+
+| L1 Cache       | ~1 ns        |
+| L2 Cache       | ~5 ns        |
+| L3 Cache       | ~20 ns       |
+| RAM            | ~80-150 ns   |
+| Remote NUMA    | ~150-250 ns  |
++----------------+--------------+
+```
+
+#### Branch-predictable and tight loop 
+Typical case
+- Most buckets have 0–1 matching tophash
+- So 7 out of 8 iterations will immediately continue
+
+That loop turns into something very predictable:
+```assembly
+load th
+cmp th, top
+jne skip_slot
+// rare path: key compare
+```
+
+Branch predictor learns:
+- "usually jne is taken" -> very cheap
+- the "rare" not-taken case is when tophash[i] == top, only for matching or colliding keys
+
+> So the CPU’s speculative execution works in your favor.
+
 Example:
 ```
 hash = FA9320AABBCCDDEE
@@ -201,7 +261,10 @@ tophash := 0xFA
 
 for each overflowBucket in chain:
     for i in 0..7:
-        if overflowBucket.tophash[i] == tophash and overflowBucket.key[i] == key:
+        if overflowBucket.tophash[i] != tophash:
+            continue
+
+        if overflowBucket.key[i] == key:
             return overflowBucket.values[i], true
 ```
 
