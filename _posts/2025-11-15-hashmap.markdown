@@ -19,7 +19,7 @@ And like everyone else, you answer:
 
 > "O(1) on average."
 
-Seems correct, right? </br>
+Seems correct, right? 
 Well… not really.
 
 Let’s break the illusion.
@@ -71,8 +71,8 @@ A hash map consists of two main components:
 ### The bucket array
 This is an array where each element points to a *"bucket"*.
 
-The array length is usually a power of two: </br>
-8, 16, 32, 64, … </br>
+The array length is usually a power of two: 
+8, 16, 32, 64, … 
 This allows faster hashing using bitwise operations.
 
 Example (size = 8):
@@ -139,7 +139,7 @@ index = 0x6 (decimal 6)
 
 So the key will be searched in bucket **#6**.
 
->**No memory** access has happened yet.</br>
+>**No memory** access has happened yet.
 >This is all done in **CPU registers**.
 
 ### Step 3 - Load the Bucket Pointer
@@ -148,7 +148,7 @@ We stores an array of bucket pointers:
 bucketPtr := h.buckets[index]
 ```
 
-Assume key always string and value always int. </br>
+Assume key always string and value always int. 
 This points to a bucket struct that looks like:
 ```go
 type bucket struct {
@@ -284,6 +284,6 @@ That world doesn’t exist.
 
 On real CPUs, real RAM, and real workloads: *Hashmaps behave like O(1) amortized average-time data structures.*
 
-> Average lookup: **O(1)** </br>
+> Average lookup: **O(1)** 
 > Worst case:     **O(n)**
 
