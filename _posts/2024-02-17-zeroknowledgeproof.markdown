@@ -14,13 +14,13 @@ Zero-knowledge proofs are cryptographic techniques that allow one party (the pro
 
 ### Example
 
-1. Proofer and Verifier choose two large prime integers p and q and compute the product $$ n = pq $$
-2. Proofer create secret numbers coprime to n $$ s_{1},\cdots ,s_{k} $$
-3. Verifier chooses numbers $$ a_{1},\cdots ,a_{k} $$ where $$ a_{i} $$ equals 0 or 1
-4. Proofer chooses a random integer r, computes x and send it to Verifier $$ {\displaystyle s\cdot x\equiv r^{2}{\pmod {n}}} $$
-5. Proofer computes y and send it to Verifier $$ y\equiv r\cdot (s_{1}^{a_{1}}s_{2}^{a_{2}}\cdots s_{k}^{a_{k}}){\pmod  {n}} $$
-6. Proofer computes v and send it to Verifier $$ v_{i}\equiv s_{i}^{{2}}{\pmod  {n}} $$ 
-7. Verifier checks that $$ {\displaystyle y^{2}{\pmod {n}}\equiv \pm \,xv_{1}^{a_{1}}v_{2}^{a_{2}}\cdots v_{k}^{a_{k}}{\pmod {n}}} $$ and that $$ {\displaystyle x\neq 0.} $$
+1. Proofer and Verifier choose two large prime integers p and q and compute the product `n = p * q`
+2. Proofer create secret numbers coprime to n: `s_1, ..., s_k`
+3. Verifier chooses numbers `a_1, ..., a_k` where each `a_i` equals 0 or 1
+4. Proofer chooses a random integer r, computes x and send it to Verifier: `x = r^2 mod n`
+5. Proofer computes y and send it to Verifier: `y = r * (s_1^a_1 * s_2^a_2 * ... * s_k^a_k) mod n`
+6. Proofer computes v and send it to Verifier: `v_i = s_i^2 mod n`
+7. Verifier checks that `y^2 mod n = ± x * v_1^a_1 * v_2^a_2 * ... * v_k^a_k mod n` and that `x != 0`
 
 Here is the example code in Go
 

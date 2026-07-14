@@ -81,7 +81,51 @@ Back to my lambda console, I wanna use the environment variables to store the to
 
 This is my final code
 
-{% gist 5d2830286b365edbc3750a629d1dc7a9 %}
+```python
+import json
+import dateutil.tz
+import dateutil.parser
+import os
+from botocore.vendored import requests
+from datetime import datetime as dt
+
+def lambda_handler(event, context):
+    data = requests.get("https://www.nba2k.io/page-data/20/active-locker-codes/page-data.json").json()
+
+    tg_chat_id = os.environ["TELEGRAM_ID"]
+    tg_token = os.environ["TELEGRAM_2K_BOT_TOKEN"]
+
+    jakarta = dateutil.tz.gettz("Asia/Jakarta")
+    mountain = dateutil.tz.gettz("US/Mountain")
+
+    edges = data["result"]["data"]["allLockerCodes"]["edges"]
+
+    msg = ""
+    for edge in edges:
+        code = edge["node"]["lockerCode"]
+        title = edge["node"]["title"]
+        create = dateutil.parser.parse(edge["node"]["dateAdded"])
+        expire_at = None
+        if edge["node"]["expiration"] is not None:
+            expire = dateutil.parser.parse(edge["node"]["expiration"])
+            now = dt.now(tz=mountain)
+            if now > expire:
+                continue
+
+            expire_at = expire.astimezone(tz=jakarta)
+
+        msg += f"Title: {title}\nCode: {code}\nCreated At: {create.astimezone(tz=jakarta)}\nExpire At: {expire.astimezone(tz=jakarta)}\n\n"
+
+    params = {'chat_id': tg_chat_id, 'text': msg}
+    res = requests.post(f"https://api.telegram.org/bot{tg_token}/sendMessage", data=params).json()
+
+    return {
+        'statusCode': 200,
+        'body': res
+    }
+```
+
+(Also on [GitHub Gist](https://gist.github.com/nyelonong/5d2830286b365edbc3750a629d1dc7a9).)
 
 And my last step is adding cloudwatch event as a trigger.
 

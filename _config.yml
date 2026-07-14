@@ -3,8 +3,6 @@ name:               "Zaki"
 home:               "~/"
 description:        "daily blog"
 
-comments:           true
-
 # URL
 baseurl:            ""
 #baseurl:            "" #For Root Domain
@@ -36,6 +34,3 @@ defaults:
       type:         "posts"
     values:
       layout:       "post"
-
-plugins:
-  - jekyll-gist
