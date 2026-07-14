@@ -14,15 +14,26 @@ Zero-knowledge proofs are cryptographic techniques that allow one party (the pro
 
 ### Example
 
+This is the [Feige-Fiat-Shamir identification scheme](https://en.wikipedia.org/wiki/Feige%E2%80%93Fiat%E2%80%93Shamir_identification_scheme).
+
 1. Proofer and Verifier choose two large prime integers p and q and compute the product `n = p * q`
 2. Proofer create secret numbers coprime to n: `s_1, ..., s_k`
 3. Verifier chooses numbers `a_1, ..., a_k` where each `a_i` equals 0 or 1
-4. Proofer chooses a random integer r, computes x and send it to Verifier: `x = r^2 mod n`
+4. Proofer chooses a random integer r **and a random sign `o` of either +1 or -1**, computes x and send it to Verifier: `x = o * r^2 mod n`
 5. Proofer computes y and send it to Verifier: `y = r * (s_1^a_1 * s_2^a_2 * ... * s_k^a_k) mod n`
 6. Proofer computes v and send it to Verifier: `v_i = s_i^2 mod n`
 7. Verifier checks that `y^2 mod n = ± x * v_1^a_1 * v_2^a_2 * ... * v_k^a_k mod n` and that `x != 0`
 
-Here is the example code in Go
+The `±` in step 7 is there because of the random sign in step 4. Verifier does
+not know which sign Proofer picked, so it has to accept either one.
+
+(Most write-ups call that sign `s`, which is unfortunate, because `s_1...s_k`
+are the secrets and the two have nothing to do with each other. I call it `o`
+here to keep them apart.)
+
+Here is the example code in Go. It keeps things simple by always taking the
+sign as +1, so `x` is just `r^2 mod n` and the final check is a plain equality
+with no `±`.
 
 ```go
 package main
