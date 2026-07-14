@@ -16,13 +16,13 @@ Zero-knowledge proofs are cryptographic techniques that allow one party (the pro
 
 This is the [Feige-Fiat-Shamir identification scheme](https://en.wikipedia.org/wiki/Feige%E2%80%93Fiat%E2%80%93Shamir_identification_scheme).
 
-1. Proofer and Verifier choose two large prime integers p and q and compute the product `n = p * q`
-2. Proofer create secret numbers coprime to n: `s_1, ..., s_k`
-3. Verifier chooses numbers `a_1, ..., a_k` where each `a_i` equals 0 or 1
-4. Proofer chooses a random integer r **and a random sign `o` of either +1 or -1**, computes x and send it to Verifier: `x = o * r^2 mod n`
-5. Proofer computes y and send it to Verifier: `y = r * (s_1^a_1 * s_2^a_2 * ... * s_k^a_k) mod n`
-6. Proofer computes v and send it to Verifier: `v_i = s_i^2 mod n`
-7. Verifier checks that `y^2 mod n = ± x * v_1^a_1 * v_2^a_2 * ... * v_k^a_k mod n` and that `x != 0`
+1. Proofer and Verifier choose two large prime integers p and q and compute the product <math><mi>n</mi><mo>=</mo><mi>p</mi><mo>&#8901;</mo><mi>q</mi></math>
+2. Proofer create secret numbers coprime to n: <math><msub><mi>s</mi><mn>1</mn></msub><mo>,</mo><mo>&#8230;</mo><mo>,</mo><msub><mi>s</mi><mi>k</mi></msub></math>
+3. Verifier chooses numbers <math><msub><mi>a</mi><mn>1</mn></msub><mo>,</mo><mo>&#8230;</mo><mo>,</mo><msub><mi>a</mi><mi>k</mi></msub></math> where each <math><msub><mi>a</mi><mi>i</mi></msub><mo>&#8712;</mo><mo stretchy="false">{</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false">}</mo></math>
+4. Proofer chooses a random integer r **and a random sign** <math><mi>o</mi><mo>&#8712;</mo><mo stretchy="false">{</mo><mo>&#8722;</mo><mn>1</mn><mo>,</mo><mo>+</mo><mn>1</mn><mo stretchy="false">}</mo></math>, computes x and send it to Verifier: <math><mi>x</mi><mo>&#8801;</mo><mi>o</mi><mo>&#8901;</mo><msup><mi>r</mi><mn>2</mn></msup><mspace width="0.6em"></mspace><mo stretchy="false">(</mo><mtext>mod&#160;</mtext><mi>n</mi><mo stretchy="false">)</mo></math>
+5. Proofer computes y and send it to Verifier: <math><mi>y</mi><mo>&#8801;</mo><mi>r</mi><mo>&#8901;</mo><mo stretchy="false">(</mo><msubsup><mi>s</mi><mn>1</mn><msub><mi>a</mi><mn>1</mn></msub></msubsup><msubsup><mi>s</mi><mn>2</mn><msub><mi>a</mi><mn>2</mn></msub></msubsup><mo>&#8943;</mo><msubsup><mi>s</mi><mi>k</mi><msub><mi>a</mi><mi>k</mi></msub></msubsup><mo stretchy="false">)</mo><mspace width="0.6em"></mspace><mo stretchy="false">(</mo><mtext>mod&#160;</mtext><mi>n</mi><mo stretchy="false">)</mo></math>
+6. Proofer computes v and send it to Verifier: <math><msub><mi>v</mi><mi>i</mi></msub><mo>&#8801;</mo><msubsup><mi>s</mi><mi>i</mi><mn>2</mn></msubsup><mspace width="0.6em"></mspace><mo stretchy="false">(</mo><mtext>mod&#160;</mtext><mi>n</mi><mo stretchy="false">)</mo></math>
+7. Verifier checks that <math><msup><mi>y</mi><mn>2</mn></msup><mo>&#8801;</mo><mo>&#177;</mo><mi>x</mi><mo>&#8901;</mo><msubsup><mi>v</mi><mn>1</mn><msub><mi>a</mi><mn>1</mn></msub></msubsup><msubsup><mi>v</mi><mn>2</mn><msub><mi>a</mi><mn>2</mn></msub></msubsup><mo>&#8943;</mo><msubsup><mi>v</mi><mi>k</mi><msub><mi>a</mi><mi>k</mi></msub></msubsup><mspace width="0.6em"></mspace><mo stretchy="false">(</mo><mtext>mod&#160;</mtext><mi>n</mi><mo stretchy="false">)</mo></math> and that <math><mi>x</mi><mo>&#8800;</mo><mn>0</mn></math>
 
 The `±` in step 7 is there because of the random sign in step 4. Verifier does
 not know which sign Proofer picked, so it has to accept either one.
