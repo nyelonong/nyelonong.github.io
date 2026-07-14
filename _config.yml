@@ -20,6 +20,14 @@ nav:
 sass:
   style:            compressed
 
+# Not published. Setting this replaces Jekyll's default exclude list, so the
+# usual Gemfile/vendor entries are repeated here in case one ever shows up.
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - vendor
+
 # Scopes
 defaults:
   -
