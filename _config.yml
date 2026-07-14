@@ -24,6 +24,7 @@ sass:
 # usual Gemfile/vendor entries are repeated here in case one ever shows up.
 exclude:
   - README.md
+  - CLAUDE.md
   - Gemfile
   - Gemfile.lock
   - vendor
