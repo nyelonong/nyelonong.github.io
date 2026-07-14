@@ -8,8 +8,10 @@ layout: default
 </header>
 <div class="content post">
     <h1 class="post-title">{{ page.title }}</h1>
+    {% assign words = content | strip_html | number_of_words %}
+    {% assign minutes = words | divided_by: 200.0 | ceil %}
     <div class="post-date">
-        <time>{{ page.date | date_to_string }}</time>
+        <time>{{ page.date | date_to_string }}</time> &middot; {{ minutes }} min read
     </div>
     {{ content }}
 </div>
