@@ -84,7 +84,7 @@ body {
 }
 
 a {
-  color: #268bd2;
+  color: #1a6ca8; // 5.6:1 on white; #268bd2 was 3.7:1, below AA
   text-decoration: none;
 
   &:hover,
@@ -204,7 +204,7 @@ abbr[title] {
 blockquote {
   padding: 0 0 0 1.5rem;
   margin: 0 2rem 1rem 0;
-  color: #999;
+  color: #6a6a6a; // #999 was 2.9:1 on white, below AA
   border-left: .5rem solid #e5e5e5;
 
   p:last-child {
@@ -220,7 +220,7 @@ pre {
 code {
   padding: .25em .5em;
   font-size: 85%;
-  color: #bf616a;
+  color: #a8434d; // 5.6:1 on #f9f9f9; #bf616a was 3.9:1, below AA
   background-color: #f9f9f9;
   border-radius: 3px;
 }
@@ -232,10 +232,10 @@ pre {
   padding: 1rem;
   font-size: .8rem;
   line-height: 1.4;
+  // Never wrap code: breaking an identifier mid-token is worse than a
+  // horizontal scrollbar on the rare over-long line.
   white-space: pre;
-  white-space: pre-wrap;
-  word-break: break-all;
-  // word-wrap: break-word;
+  overflow-x: auto;
   background-color: #f9f9f9;
 }
 
@@ -360,7 +360,7 @@ tbody tr:nth-child(odd) th {
     margin-bottom: 2rem;
 
     a {
-      color: #aaa;
+      color: #767676; // lightest gray that passes AA on white; #aaa was 2.3:1
       font-weight: 300;
       text-transform: lowercase;
       -webkit-transition: all .2s ease;
