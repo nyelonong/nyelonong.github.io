@@ -21,6 +21,9 @@ Most of it is in Go. Source for everything is on [GitHub](https://github.com/nye
 
 ## Go libraries & tools
 
+- **[basso](https://github.com/nyelonong/basso)** — a live-coding player that plays
+  a Fennel pattern continuously and reloads it at the next bar boundary when you
+  save, with no audio restart. Pure Go, no cgo.
 - **[go-service-template](https://github.com/nyelonong/go-service-template)** —
   a production-ready Go template for HTTP + gRPC services: feature-first,
   batteries-included (pgx/sqlc, Redis, S3, JWT auth, OpenTelemetry), with
