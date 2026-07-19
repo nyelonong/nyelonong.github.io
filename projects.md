@@ -10,6 +10,9 @@ Most of it is in Go. Source for everything is on [GitHub](https://github.com/nye
 
 ## Featured
 
+- **[nyelonong.github.io](https://github.com/nyelonong/nyelonong.github.io)** —
+  this blog itself. Plain Jekyll, no plugins, no third-party JavaScript or
+  fonts.
 - **[galdr](https://github.com/nyelonong/galdr)** — an engineering methodology for
   Claude Code: routed requests, wave-based TDD plans, evidence gates, and durable
   memory. Published as a public Claude plugin.
