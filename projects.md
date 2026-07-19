@@ -21,6 +21,10 @@ Most of it is in Go. Source for everything is on [GitHub](https://github.com/nye
 
 ## Go libraries & tools
 
+- **[go-service-template](https://github.com/nyelonong/go-service-template)** —
+  a production-ready Go template for HTTP + gRPC services: feature-first,
+  batteries-included (pgx/sqlc, Redis, S3, JWT auth, OpenTelemetry), with
+  real working slices instead of toy examples.
 - **[nsqsink](https://github.com/nyelonong/nsqsink)** — read from NSQ and write to
   an HTTP endpoint.
 - **[httpclient](https://github.com/nyelonong/httpclient)** — an easy-to-use HTTP
