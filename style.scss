@@ -360,6 +360,7 @@ tbody tr:nth-child(odd) th {
     margin-bottom: 2rem;
 
     a {
+      padding: 11px 0;
       color: #767676; // lightest gray that passes AA on white; #aaa was 2.3:1
       font-weight: 300;
       text-transform: lowercase;
