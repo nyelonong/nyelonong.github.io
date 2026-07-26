@@ -30,6 +30,19 @@ raw inbox  ->  knowledge compiler  ->  durable notes  ->  reviewed publish
 
 The key idea is that *capture* and *knowledge* are not the same thing.
 
+## The Reference Implementation
+
+The system is intentionally small:
+
+- Markdown files are the canonical knowledge store.
+- Git handles history, review, and conflict recovery.
+- A small Python CLI owns path validation, writer locks, and deterministic publishing.
+- Shell hooks run staged secret checks before commits.
+- A SQLite-backed memory store keeps shared facts separate from private runtime context.
+- GitHub pull requests remain the public publishing gate.
+
+The stack is deliberately plain. Each part is inspectable without needing a separate platform to explain what happened.
+
 A raw inbox is allowed to be messy. Durable notes are not. That separation sounds obvious, but it prevents a surprising amount of confusion when multiple agents or sessions touch the same material.
 
 ## 1. Raw Input Is Not Knowledge Yet
@@ -156,7 +169,7 @@ git commit -m "knowledge: publish reviewed note"
 git push origin "$BRANCH"
 ```
 
-The extra space before `git diff` is not intentional in a real script; it is a useful reminder that examples should be reviewed before becoming automation. The important part is the sequence, not the command vocabulary.
+The important part is the sequence, not the command vocabulary.
 
 If the remote changes during the operation, retrying a pull-and-rebase once is reasonable. Force-pushing is not. A portable workflow should prefer an explicit conflict over silently replacing someone else's knowledge.
 
