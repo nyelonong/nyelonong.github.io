@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "I Built a Methodology Pack So Claude Code Stops Writing Garbage"
+title:  "I Built a Methodology So AI Coding Agents Stop Writing Garbage"
 date:   2026-07-20
 categories: [blog]
 ---
