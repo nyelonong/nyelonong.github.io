@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "I Built a Methodology So AI Coding Agents Stop Writing Garbage"
+title:  "AI Coding Agents Need a Method, Not More Prompts"
 date:   2026-07-20
 categories: [blog]
 ---
