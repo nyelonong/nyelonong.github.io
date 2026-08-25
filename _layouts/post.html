@@ -5,7 +5,7 @@ layout: default
 <main class="field-post">
   <article>
     <p class="label">Field note</p>
-    <h1>{{ page.title }}</h1>
+    <h1 class="post-title">{{ page.title }}</h1>
     {% assign words = content | strip_html | number_of_words %}
     {% assign minutes = words | divided_by: 200.0 | ceil %}
     <div class="post-meta">
@@ -14,4 +14,5 @@ layout: default
     </div>
     {{ content }}
   </article>
+  {% include reading-footer.html %}
 </main>
