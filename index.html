@@ -1,27 +1,28 @@
 ---
 layout: default
 ---
-<header class="masthead">
-  <h1 class="masthead-title">
-    <a href="{{ site.baseurl }}/">{{ site.name }}<span>&#39;s blog</span></a>
-  </h1>
-  {% include nav.html %}
-</header>
-<div class="content list">
-{% if site.posts.size == 0 %}
-  <h2>No post found</h2>
-{% else %}
-{% for post in site.posts %}
-  {% assign words = post.content | strip_html | number_of_words %}
-  {% assign minutes = words | divided_by: 200.0 | ceil %}
-  <div class="list-item">
-    <h2 class="list-post-title">
-      <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
-    </h2>
-    <div class="list-post-date">
-      <time>{{ post.date | date_to_string }}</time> &middot; {{ minutes }} min read
-    </div>
-  </div>
-{% endfor %}
-{% endif %}
-</div>
+{% include site-header.html %}
+<main class="notes-index">
+  <section class="notes-introduction" aria-labelledby="notes-title">
+    <p class="label">Field notebook</p>
+    <h1 id="notes-title">Notes from<br>the workbench.</h1>
+    <p>A place for systems, tools, mistakes, and the ways work gets done.</p>
+  </section>
+  <section class="notes-list" aria-label="Posts">
+  {% if site.posts.size == 0 %}
+    <p class="empty-notes">No notes yet.</p>
+  {% else %}
+  {% for post in site.posts %}
+    {% assign words = post.content | strip_html | number_of_words %}
+    {% assign minutes = words | divided_by: 200.0 | ceil %}
+    <article class="note-entry">
+      <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%d %b %y" }}</time>
+      <div>
+        <h2><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h2>
+        <p>{{ minutes }} min read</p>
+      </div>
+    </article>
+  {% endfor %}
+  {% endif %}
+  </section>
+</main>

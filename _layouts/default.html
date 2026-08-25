@@ -3,13 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{% if page.title %}{{ page.title }}{% else %}{{ site.home }}{% endif %}</title>
+  <title>{% if page.title %}{{ page.title }} · al.afrani.id{% else %}al.afrani.id · notes from the workbench{% endif %}</title>
   <link rel="stylesheet" href="{{ site.baseurl }}/style.css">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAxMDAgMTAwJz48dGV4dCB4PSc1MCcgeT0nNzInIGZvbnQtc2l6ZT0nNzInIHRleHQtYW5jaG9yPSdtaWRkbGUnIGZvbnQtZmFtaWx5PSdtb25vc3BhY2UnIGZpbGw9JyMzMzMnPn48L3RleHQ+PC9zdmc+">
 </head>
 <body>
-  <div class="container">
-    {{ content }}
-  </div>
+  {{ content }}
 </body>
 </html>

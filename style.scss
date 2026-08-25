@@ -486,3 +486,202 @@ tbody tr:nth-child(odd) th {
 .highlight .vg { color: #008080 } /* Name.Variable.Global */
 .highlight .vi { color: #008080 } /* Name.Variable.Instance */
 .highlight .il { color: #009999 } /* Literal.Number.Integer.Long */
+
+// Field notebook: the shared Afrani family, tuned for long-form reading.
+:root {
+  --paper: #ebe4da;
+  --paper-light: #f4eee5;
+  --ink: #26302e;
+  --muted: #6c756d;
+  --line: rgba(38, 48, 46, .24);
+  --sage-deep: #53624f;
+  --terracotta: #b76549;
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --mono: "SFMono-Regular", Consolas, monospace;
+}
+
+html {
+  background: var(--paper);
+  font-family: var(--serif);
+  font-size: 18px;
+  line-height: 1.55;
+}
+
+body {
+  min-width: 320px;
+  color: var(--ink);
+  background: var(--paper);
+}
+
+a {
+  color: inherit;
+  text-decoration-thickness: 1px;
+  text-underline-offset: .22em;
+}
+
+a:hover { color: var(--terracotta); }
+
+a:focus-visible {
+  outline: 2px solid var(--terracotta);
+  outline-offset: 4px;
+}
+
+h1, h2, h3, h4, h5, h6, strong { color: var(--ink); }
+h1, h2, h3, h4, h5, h6 { font-family: var(--serif); font-weight: 400; }
+code { color: #8c402a; background: rgba(255, 255, 255, .42); }
+pre { border: 1px solid var(--line); background: var(--paper-light); }
+
+.site-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.2rem clamp(1rem, 5vw, 4rem);
+  border-bottom: 1px solid var(--line);
+}
+
+.site-mark {
+  color: var(--ink);
+  font-family: var(--mono);
+  font-size: .94rem;
+  font-weight: 700;
+  letter-spacing: -.06em;
+  text-decoration: none;
+}
+
+.site-mark:hover { color: var(--ink); }
+.site-mark span { color: var(--terracotta); }
+
+.site-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: .7rem 1.1rem;
+  font-family: var(--mono);
+  font-size: .61rem;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+.site-nav a { color: var(--muted); text-decoration: none; }
+.site-nav a:hover { color: var(--terracotta); }
+
+.label {
+  margin: 0;
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: .62rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.notes-index {
+  display: grid;
+  grid-template-columns: minmax(14rem, .85fr) minmax(18rem, 38rem) minmax(7rem, .35fr);
+  gap: clamp(1.5rem, 6vw, 7rem);
+  max-width: 86rem;
+  margin: 0 auto;
+  padding: clamp(3rem, 9vw, 8rem) clamp(1rem, 5vw, 4rem);
+  background-image: linear-gradient(rgba(38, 48, 46, .035) 1px, transparent 1px);
+  background-size: 100% 2.2rem;
+}
+
+.notes-introduction { grid-column: 1; }
+.notes-introduction h1 {
+  margin: .8rem 0 1rem;
+  font-size: clamp(3.2rem, 6vw, 5.7rem);
+  line-height: .84;
+  letter-spacing: -.1em;
+}
+.notes-introduction > p:last-child {
+  max-width: 13rem;
+  margin: 0;
+  color: var(--muted);
+  font-size: 1rem;
+}
+
+.notes-list { grid-column: 2; border-top: 1px solid var(--line); }
+.note-entry {
+  display: grid;
+  grid-template-columns: 5.4rem 1fr;
+  gap: 1rem;
+  padding: 1.2rem 0 1.3rem;
+  border-bottom: 1px solid var(--line);
+}
+.note-entry time, .post-meta {
+  color: var(--sage-deep);
+  font-family: var(--mono);
+  font-size: .6rem;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+.note-entry time { padding-top: .24rem; }
+.note-entry h2 {
+  margin: 0;
+  font-size: clamp(1.45rem, 2.4vw, 2.1rem);
+  line-height: .96;
+  letter-spacing: -.06em;
+}
+.note-entry h2 a { text-decoration: none; }
+.note-entry p { margin: .42rem 0 0; color: var(--muted); font-size: .9rem; }
+.empty-notes { color: var(--muted); }
+
+.field-post, .field-page {
+  max-width: 42rem;
+  margin: 0 auto;
+  padding: clamp(3rem, 8vw, 7rem) clamp(1rem, 5vw, 2rem) 6rem;
+}
+
+.field-post .post-title, .field-page > .page-title {
+  margin: .7rem 0 .5rem;
+  font-size: clamp(2.3rem, 4vw, 3.6rem);
+  font-weight: 400;
+  line-height: .9;
+  letter-spacing: -.075em;
+}
+.field-post article > h1:not(.post-title), .field-post h2, .field-page h2 {
+  margin-top: 2.5rem;
+  font-size: clamp(1.8rem, 3vw, 2.45rem);
+  line-height: .98;
+  letter-spacing: -.055em;
+}
+.field-post h3, .field-page h3 { margin-top: 2rem; font-size: 1.25rem; }
+.field-post p, .field-page p, .field-post li, .field-page li { font-size: 1.05rem; }
+.post-meta {
+  display: flex;
+  gap: .7rem;
+  margin: 0 0 2.8rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--line);
+}
+.post-meta span::before { content: "·"; margin-right: .7rem; color: var(--muted); }
+.reading-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 4rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+  font-family: var(--mono);
+  font-size: .62rem;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+.field-post blockquote, .field-page blockquote { border-left-color: var(--sage-deep); color: var(--muted); }
+.field-post img, .field-page img { border-radius: 0; border: 1px solid var(--line); }
+.field-post table, .field-page table { font-size: .85rem; border-color: var(--line); }
+.field-post td, .field-post th, .field-page td, .field-page th { border-color: var(--line); }
+
+@media (max-width: 760px) {
+  .site-header { align-items: flex-start; }
+  .site-nav { max-width: 13rem; gap: .45rem .8rem; }
+  .notes-index { display: block; padding-top: 4rem; }
+  .notes-introduction { margin-bottom: 3.5rem; }
+  .notes-introduction > p:last-child { max-width: 19rem; }
+  .note-entry { grid-template-columns: 4.8rem 1fr; }
+  .reading-footer { margin-top: 3rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
+}
