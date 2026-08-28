@@ -196,7 +196,36 @@ conversation -> candidate fact -> validation -> semantic memory
 
 A message can be *evidence for* a memory without becoming the memory itself. This small distinction prevents a casual sentence from turning into a long-lived rule.
 
-# 5. Selective Retrieval Beats Prompt Stuffing
+# 5. Compaction Is Not Memory
+
+There is one more concept that often gets mixed into this architecture: *compaction*.
+
+Compaction is not a fifth memory layer. It is a lossy context-window management technique. When a conversation gets too large for the model's context window, we can replace some of the visible messages with a shorter summary so the current task can continue.
+
+That summary is useful, but it is not the source of truth. The original conversation history remains the canonical audit trail. A compaction summary is a temporary context representation: a convenient reconstruction of what seems relevant right now, not an authoritative record of everything that happened.
+
+```text
+original conversation / history
+        (canonical audit trail)
+                    |
+             lossy compaction
+                    v
+       temporary context summary
+        (for the current window)
+```
+
+The word *lossy* matters. A summary can omit a qualification, flatten a disagreement, or accidentally make a guess sound like a decision. If the detail matters, go back to the original history or a validated source document. Do not promote the summary into semantic memory just because it sounds confident.
+
+So the architecture has four information layers or roles:
+
+1. built-in memory for small, stable preferences
+2. semantic memory for validated, searchable facts
+3. a knowledge vault for complete source material
+4. conversation history for the audit trail
+
+Compaction sits beside those layers as context management. It changes what is loaded into the current prompt; it does not create a new kind of durable information.
+
+# 6. Selective Retrieval Beats Prompt Stuffing
 
 The tempting implementation is straightforward:
 
@@ -229,7 +258,7 @@ This is not a complete retrieval system, but it captures the important design ch
 
 Fewer irrelevant tokens usually means lower cost and less opportunity for contradictory context. More context is not automatically more intelligence.
 
-# 6. Privacy Boundaries Are Part of the Architecture
+# 7. Privacy Boundaries Are Part of the Architecture
 
 Layering is also a privacy mechanism.
 
@@ -253,7 +282,7 @@ Consider the difference between:
 
 Putting them in one bucket makes accidental disclosure much more likely. Separate layers, scopes, and retrieval policies make the safe path the normal path.
 
-# 7. Why This Is Easier to Debug and Cheaper
+# 8. Why This Is Easier to Debug and Cheaper
 
 A single memory bucket creates several mysteries:
 
@@ -275,7 +304,7 @@ We can also measure each layer separately: hit rate, stale-record rate, token us
 
 That is the practical benefit. A layered architecture is not just cleaner on a diagram. It gives us knobs to tune instead of one giant prompt to fear.
 
-# 8. The Rule I Keep Coming Back To
+# 9. The Rule I Keep Coming Back To
 
 An agent should not remember everything. It should remember the *right kind of thing in the right place*.
 
