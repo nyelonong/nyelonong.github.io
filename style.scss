@@ -496,8 +496,53 @@ tbody tr:nth-child(odd) th {
   --line: rgba(38, 48, 46, .24);
   --sage-deep: #53624f;
   --terracotta: #b76549;
+  --rule: rgba(38, 48, 46, .035);
+  --code: #8c402a;
+  --code-bg: rgba(255, 255, 255, .42);
   --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
   --mono: "SFMono-Regular", Consolas, monospace;
+  color-scheme: light dark;
+}
+
+// Night: the same palette the garden at afrani.id uses after dark.
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #1a232a;
+    --paper-light: #212c33;
+    --ink: #e8e2d5;
+    --muted: #a4ada4;
+    --line: rgba(232, 226, 213, .2);
+    --sage-deep: #a8b98f;
+    --terracotta: #e08a69;
+    --rule: rgba(232, 226, 213, .04);
+    --code: #e7a38a;
+    --code-bg: rgba(255, 255, 255, .06);
+  }
+
+  hr { border-color: var(--line); }
+  abbr { color: var(--muted); }
+  tbody tr:nth-child(odd) td,
+  tbody tr:nth-child(odd) th { background-color: rgba(255, 255, 255, .03); }
+
+  .highlight .hll { background-color: rgba(233, 211, 138, .15); }
+  .highlight .err { color: #f0a3a3; background-color: transparent; }
+  .highlight .k, .highlight .o, .highlight .kc, .highlight .kd, .highlight .kn,
+  .highlight .kp, .highlight .kr, .highlight .ow, .highlight .ge,
+  .highlight .gd, .highlight .gi { color: var(--ink); }
+  .highlight .gd { background-color: rgba(224, 138, 105, .18); }
+  .highlight .gi { background-color: rgba(168, 185, 143, .18); }
+  .highlight .c, .highlight .cm, .highlight .cp, .highlight .c1, .highlight .cs,
+  .highlight .gh, .highlight .go, .highlight .gp, .highlight .gu, .highlight .nn,
+  .highlight .bp, .highlight .w { color: var(--muted); }
+  .highlight .s, .highlight .sb, .highlight .sc, .highlight .sd, .highlight .s2,
+  .highlight .se, .highlight .sh, .highlight .si, .highlight .sx, .highlight .s1,
+  .highlight .sr, .highlight .ss { color: var(--sage-deep); }
+  .highlight .m, .highlight .mf, .highlight .mh, .highlight .mi, .highlight .mo,
+  .highlight .il, .highlight .kt, .highlight .nc, .highlight .nt { color: #93b4c6; }
+  .highlight .na, .highlight .nb, .highlight .no, .highlight .nv, .highlight .vc,
+  .highlight .vg, .highlight .vi, .highlight .ni, .highlight .nd { color: #b9cdd8; }
+  .highlight .ne, .highlight .nf, .highlight .nl, .highlight .gr,
+  .highlight .gt { color: var(--terracotta); }
 }
 
 html {
@@ -528,7 +573,7 @@ a:focus-visible {
 
 h1, h2, h3, h4, h5, h6, strong { color: var(--ink); }
 h1, h2, h3, h4, h5, h6 { font-family: var(--serif); font-weight: 400; }
-code { color: #8c402a; background: rgba(255, 255, 255, .42); }
+code { color: var(--code); background: var(--code-bg); }
 pre { border: 1px solid var(--line); background: var(--paper-light); }
 
 .site-header {
@@ -551,6 +596,18 @@ pre { border: 1px solid var(--line); background: var(--paper-light); }
 
 .site-mark:hover { color: var(--ink); }
 .site-mark span { color: var(--terracotta); }
+
+.specimen {
+  margin-right: auto;
+  padding: .3rem .55rem .3rem 1.15rem;
+  border: 1px solid var(--line);
+  color: var(--sage-deep);
+  font-family: var(--mono);
+  font-size: .56rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  background: radial-gradient(circle at .55rem 50%, transparent .12rem, var(--line) .13rem, var(--line) .18rem, transparent .19rem);
+}
 
 .site-nav {
   display: flex;
@@ -582,7 +639,7 @@ pre { border: 1px solid var(--line); background: var(--paper-light); }
   max-width: 86rem;
   margin: 0 auto;
   padding: clamp(3rem, 9vw, 8rem) clamp(1rem, 5vw, 4rem);
-  background-image: linear-gradient(rgba(38, 48, 46, .035) 1px, transparent 1px);
+  background-image: linear-gradient(var(--rule) 1px, transparent 1px);
   background-size: 100% 2.2rem;
 }
 
@@ -667,14 +724,31 @@ pre { border: 1px solid var(--line); background: var(--paper-light); }
   letter-spacing: .06em;
   text-transform: uppercase;
 }
+.field-post article a, .field-page > p a, .field-page li a {
+  color: var(--sage-deep);
+  text-decoration-color: color-mix(in srgb, var(--sage-deep) 45%, transparent);
+}
+.field-post article a:hover, .field-page > p a:hover, .field-page li a:hover {
+  color: var(--terracotta);
+  text-decoration-color: currentColor;
+}
 .field-post blockquote, .field-page blockquote { border-left-color: var(--sage-deep); color: var(--muted); }
 .field-post img, .field-page img { border-radius: 0; border: 1px solid var(--line); }
 .field-post table, .field-page table { font-size: .85rem; border-color: var(--line); }
 .field-post td, .field-post th, .field-page td, .field-page th { border-color: var(--line); }
 
+@media (min-width: 761px) and (min-height: 700px) {
+  .notes-introduction {
+    position: sticky;
+    top: clamp(2rem, 8vh, 5rem);
+    align-self: start;
+  }
+}
+
 @media (max-width: 760px) {
   .site-header { align-items: flex-start; }
   .site-nav { max-width: 13rem; gap: .45rem .8rem; }
+  .specimen { display: none; }
   .notes-index { display: block; padding-top: 4rem; }
   .notes-introduction { margin-bottom: 3.5rem; }
   .notes-introduction > p:last-child { max-width: 19rem; }
