@@ -69,7 +69,7 @@ pin an exact version and add an
 _layouts/     default.html wraps everything; post.html and page.html sit inside it
 _posts/       the posts
 images/       post images
-fonts/        self-hosted Source Sans Pro (woff2, latin + latin-ext)
+fonts/        self-hosted Charis SIL (woff2, latin), the fallback for Iowan Old Style
 style.scss    the whole stylesheet, self-contained, compiles to /style.css
 _config.yml   site config; no plugins
 CNAME         al.afrani.id
