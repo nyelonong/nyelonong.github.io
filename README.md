@@ -5,30 +5,23 @@ by GitHub Pages from `master`. Themed with [Kiko](http://github.com/gfjaru/Kiko)
 
 ## Local preview
 
-There is no `Gemfile` and no Ruby to install. GitHub Pages builds the site
-server-side, so Ruby is only ever needed to preview locally, and nix can supply
-a whole Jekyll (Ruby and all) for the length of one command:
+There is no `Gemfile`. [mise](https://mise.jdx.dev) pins the same versions the
+GitHub Pages build uses (`mise.toml`: Ruby 3.3 and the `github-pages` 232 gem,
+which brings Jekyll 3.10 and Sass 3.7.4):
 
 ```sh
-nix shell nixpkgs#jekyll --command jekyll serve
+mise install       # once
+make serve         # http://127.0.0.1:4000, rebuilds on save
+make build         # the same build GitHub Pages runs; run it before pushing
 ```
 
-Then open <http://127.0.0.1:4000>. It rebuilds on save; Ctrl-C stops it.
+Match GitHub's versions, not just any Jekyll. Pages compiles `style.scss` with
+Sass 3.7.4, which rejects CSS that newer Sass accepts; a stylesheet that builds
+under Jekyll 4 can still fail on GitHub and leave the old site live.
 
-Nothing is installed by that command. The closure lands in `/nix/store`,
-`jekyll` is on `PATH` only for the process it runs, and `$HOME` is untouched.
-
-It works because the site uses **no Jekyll plugins**. Add one and plain
-`nixpkgs#jekyll` stops being enough: you would then need a `Gemfile` and
-`bundle exec jekyll serve`. That is a real cost, so weigh it before adding a
-plugin.
-
-Without nix:
-
-```sh
-gem install jekyll
-jekyll serve
-```
+The site uses **no Jekyll plugins** beyond what `github-pages` already ships.
+Adding one would need a `Gemfile` and `bundle exec`. That is a real cost, so
+weigh it before adding a plugin.
 
 ## Writing a post
 

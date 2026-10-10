@@ -11,13 +11,17 @@ pushing to `master` publishes. `_site/` is generated locally and gitignored; nev
 ## Local preview
 
 ```sh
-nix shell nixpkgs#jekyll --command jekyll serve   # http://127.0.0.1:4000, rebuilds on save
+mise install   # once: Ruby 3.3 + github-pages 232 (Jekyll 3.10, Sass 3.7.4), pinned in mise.toml
+make serve     # http://127.0.0.1:4000, rebuilds on save
+make build     # run before pushing any style change
 ```
 
-Nothing is installed by that; the closure stays in `/nix/store` and `jekyll` is on `PATH` only for
-that process. Without nix: `gem install jekyll && jekyll serve`.
+`mise.toml` matches the GitHub Pages build image. Keep it that way: Pages compiles `style.scss` with
+Sass 3.7.4, which rejects some CSS newer Sass accepts (for example a quoted `url()` inside a custom
+property). A build under nix or Jekyll 4 passing proves nothing; a failed Pages build leaves the old
+site live without any local signal.
 
-This works only because the site uses **no Jekyll plugins** and has no `Gemfile`. Adding a plugin
+The site uses **no Jekyll plugins** beyond those `github-pages` ships and has no `Gemfile`. Adding a plugin
 forces a `Gemfile` and `bundle exec jekyll serve` on every contributor — a real cost, so weigh it
 before proposing one. `_config.yml` also has an explicit `exclude:` list, which *replaces* Jekyll's
 default one, so `Gemfile`/`vendor` entries are repeated there defensively.

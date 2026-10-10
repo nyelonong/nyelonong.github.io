@@ -8,10 +8,10 @@ help:  ## show available targets
 		awk 'BEGIN {FS = ":.*## "}; {printf "  %-8s %s\n", $$1, $$2}'
 
 serve:  ## local preview at http://127.0.0.1:4000 (rebuilds on save)
-	nix shell nixpkgs#jekyll --command jekyll serve
+	mise exec -- jekyll serve
 
-build:  ## build the site into _site/
-	nix shell nixpkgs#jekyll --command jekyll build
+build:  ## build the site into _site/ exactly as GitHub Pages does
+	mise exec -- jekyll build
 
 clean:  ## remove _site/
 	rm -rf _site

@@ -27,6 +27,8 @@ sass:
 exclude:
   - README.md
   - CLAUDE.md
+  - mise.toml
+  - Makefile
   - Gemfile
   - Gemfile.lock
   - vendor

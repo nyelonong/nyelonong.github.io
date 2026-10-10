@@ -1,0 +1,5 @@
+# Matches the GitHub Pages build image (actions/jekyll-build-pages): Ruby 3.3 and github-pages 232,
+# which pins Jekyll 3.10 and Sass 3.7.4.
+[tools]
+ruby = "3.3"
+"gem:github-pages" = "232"
