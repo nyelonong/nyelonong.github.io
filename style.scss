@@ -648,7 +648,7 @@ pre { border: 1px solid var(--line); background: var(--paper-light); }
   line-height: .9;
   letter-spacing: -.075em;
 }
-.field-post p, .field-page p, .field-post li, .field-page li { font-size: 1.05rem; }
+.field-post p:not(.label), .field-page p:not(.label), .field-post li, .field-page li { font-size: 1.05rem; }
 .post-meta {
   display: flex;
   gap: .7rem;
@@ -681,12 +681,13 @@ pre { border: 1px solid var(--line); background: var(--paper-light); }
 
 // Markdown inside posts and pages.
 .field-post article, .field-page {
-  > h1:not(.post-title):not(.page-title), h2 {
-    margin: 3.2rem 0 .9rem;
-    font-size: clamp(1.5rem, 2.6vw, 1.8rem);
-    line-height: 1.08;
-    letter-spacing: -.035em;
+  > h1:not(.post-title):not(.page-title) {
+    margin: 3.6rem 0 1rem;
+    font-size: clamp(1.7rem, 3vw, 2rem);
+    line-height: 1.05;
+    letter-spacing: -.04em;
   }
+  h2 { margin: 2.8rem 0 .8rem; font-size: 1.5rem; line-height: 1.12; letter-spacing: -.03em; }
   h3 { margin: 2.2rem 0 .6rem; font-size: 1.2rem; line-height: 1.2; letter-spacing: -.02em; }
   h4, h5, h6 {
     margin: 1.8rem 0 .5rem;
