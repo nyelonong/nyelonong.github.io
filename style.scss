@@ -423,16 +423,30 @@ tbody tr:nth-child(odd) th {
 
 // Field notebook: the shared Afrani family, tuned for long-form reading.
 :root {
-  --paper: #ebe4da;
-  --paper-light: #f4eee5;
-  --ink: #26302e;
-  --muted: #6c756d;
-  --line: rgba(38, 48, 46, .24);
-  --sage-deep: #53624f;
-  --terracotta: #b76549;
-  --rule: rgba(38, 48, 46, .035);
-  --code: #8c402a;
-  --code-bg: rgba(255, 255, 255, .42);
+  --paper: #e8dbc2;
+  --paper-light: #f1e6d0;
+  --ink: #2e2620;
+  --muted: #574b3c;
+  --line: rgba(74, 52, 30, .26);
+  --sage-deep: #47543c;
+  --terracotta: #934629;
+  --rule: rgba(120, 84, 44, .09);
+  --code: #874027;
+  --code-bg: rgba(255, 248, 230, .5);
+  --tag: rgba(196, 150, 80, .14);
+  --edge: rgba(122, 78, 30, .2);
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .36 0 0 0 0 .24 0 0 0 0 .1 0 0 0 .32 -.12'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+  --mottle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='900' height='900'%3E%3Cfilter id='m'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.0035' numOctaves='4' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 0 0 0 .33 0 0 0 0 .12 0 0 0 .6 -.27'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23m)'/%3E%3C/svg%3E");
+  --fox: rgba(146, 92, 38, .2);
+  --foxing:
+    radial-gradient(circle at 3.5% 14%, var(--fox) 0, transparent 1.6rem),
+    radial-gradient(circle at 6% 16.5%, var(--fox) 0, transparent .6rem),
+    radial-gradient(circle at 2.5% 47%, var(--fox) 0, transparent 2.6rem),
+    radial-gradient(circle at 5% 81%, var(--fox) 0, transparent 1.2rem),
+    radial-gradient(circle at 96.5% 9%, var(--fox) 0, transparent 2.2rem),
+    radial-gradient(circle at 94% 12%, var(--fox) 0, transparent .7rem),
+    radial-gradient(circle at 97% 62%, var(--fox) 0, transparent 1.4rem),
+    radial-gradient(circle at 94.5% 90%, var(--fox) 0, transparent 2.8rem);
   --syn-type: #4f6d7e;
   --syn-name: #5b6f7a;
   --syn-function: #a5432c;
@@ -458,6 +472,10 @@ tbody tr:nth-child(odd) th {
     --rule: rgba(232, 226, 213, .04);
     --code: #e7a38a;
     --code-bg: rgba(255, 255, 255, .06);
+    --tag: transparent;
+    --edge: rgba(0, 0, 0, .28);
+    --foxing: none;
+    --mottle: none;
     --syn-type: #93b4c6;
     --syn-name: #b9cdd8;
     --syn-function: #e08a69;
@@ -467,7 +485,6 @@ tbody tr:nth-child(odd) th {
     --syn-inserted: rgba(168, 185, 143, .18);
   }
 
-  hr { border-color: var(--line); }
   abbr { color: var(--muted); }
 }
 
@@ -482,6 +499,30 @@ body {
   min-width: 320px;
   color: var(--ink);
   background: var(--paper);
+  isolation: isolate;
+}
+
+// Aged paper sits in a fixed layer behind the page: foxing stays in the outer margins and the
+// text column stays clean.
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    var(--foxing),
+    radial-gradient(ellipse 75% 70% at 50% 45%, transparent 55%, var(--edge) 100%),
+    var(--grain);
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background: var(--mottle) center / cover no-repeat;
 }
 
 a {
@@ -498,6 +539,7 @@ a:focus-visible {
 }
 
 h1, h2, h3, h4, h5, h6, strong { color: var(--ink); }
+hr { border: 0; border-top: 1px solid var(--line); }
 h1, h2, h3, h4, h5, h6 { font-family: var(--serif); font-weight: 400; }
 code { color: var(--code); background: var(--code-bg); }
 pre { border: 1px solid var(--line); background: var(--paper-light); }
@@ -525,6 +567,7 @@ pre { border: 1px solid var(--line); background: var(--paper-light); }
 
 .specimen {
   margin-right: auto;
+  background-color: var(--tag);
   padding: .3rem .55rem .3rem 1.15rem;
   border: 1px solid var(--line);
   color: var(--sage-deep);
@@ -532,7 +575,7 @@ pre { border: 1px solid var(--line); background: var(--paper-light); }
   font-size: .56rem;
   letter-spacing: .1em;
   text-transform: uppercase;
-  background: radial-gradient(circle at .55rem 50%, transparent .12rem, var(--line) .13rem, var(--line) .18rem, transparent .19rem);
+  background-image: radial-gradient(circle at .55rem 50%, transparent .12rem, var(--line) .13rem, var(--line) .18rem, transparent .19rem);
 }
 
 .site-nav {
@@ -737,6 +780,7 @@ pre { border: 1px solid var(--line); background: var(--paper-light); }
   .site-header { align-items: flex-start; }
   .site-nav { max-width: 13rem; gap: .45rem .8rem; }
   .specimen { display: none; }
+  body::before { background: radial-gradient(ellipse 90% 80% at 50% 45%, transparent 60%, var(--edge) 100%), var(--grain); }
   .notes-index { display: block; padding-top: 4rem; }
   .notes-introduction { margin-bottom: 3.5rem; }
   .notes-introduction > p:last-child { max-width: 19rem; }
