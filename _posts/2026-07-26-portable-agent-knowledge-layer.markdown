@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "How I Built a Portable Knowledge Layer for AI Agents"
+title:  "How I built a portable knowledge layer for AI agents"
 date:   2026-07-26
 categories: [blog]
 ---
@@ -15,7 +15,7 @@ We often try to solve this with a smarter memory feature. But the harder problem
 
 I built a small, deliberately boring knowledge layer around that contract. It is portable because it relies on ordinary files, predictable transitions, and Git-friendly boundaries instead of one magical runtime.
 
-## 0. The Shape of the System
+## 0. The shape of the system
 
 The architecture has four surfaces:
 
@@ -30,7 +30,7 @@ raw inbox  ->  knowledge compiler  ->  durable notes  ->  reviewed publish
 
 The key idea is that *capture* and *knowledge* are not the same thing.
 
-## The Reference Implementation
+## The reference implementation
 
 The system is intentionally small:
 
@@ -45,7 +45,7 @@ The stack is deliberately plain. Each part is inspectable without needing a sepa
 
 A raw inbox is allowed to be messy. Durable notes are not. That separation sounds obvious, but it prevents a surprising amount of confusion when multiple agents or sessions touch the same material.
 
-## 1. Raw Input Is Not Knowledge Yet
+## 1. Raw input is not knowledge yet
 
 The first layer accepts rough material:
 
@@ -72,7 +72,7 @@ A rough note about the article and why it might matter.
 
 The metadata is intentionally small. The goal is not to create a new database schema. The goal is to make the next step explicit.
 
-## 2. Compile Raw Material into Domain Knowledge
+## 2. Compile raw material into domain knowledge
 
 The compiler is where an agent can do more creative work. It reads one or more captures, removes noise, adds context, and produces a useful reference for a specific domain.
 
@@ -104,7 +104,7 @@ Questions that still need evidence.
 
 This is not a demand for perfect notes. It is a demand for honest boundaries. A summary should be recognizable as a summary, and an unresolved question should not quietly become a fact.
 
-## 3. Durable Notes Need an Index
+## 3. Durable notes need an index
 
 A durable note is useful only if another agent can find it later. I give durable notes a few boring requirements:
 
@@ -131,7 +131,7 @@ The index does not need to be clever. A Markdown map is often enough:
 
 The benefit is not just navigation. The index becomes a lightweight discovery contract. An agent does not have to scan every file and invent its own taxonomy on every run.
 
-## 4. Publishing Should Be Boring
+## 4. Publishing should be boring
 
 Reasoning can be flexible. File writes and publishing should be predictable.
 
@@ -173,7 +173,7 @@ The important part is the sequence, not the command vocabulary.
 
 If the remote changes during the operation, retrying a pull-and-rebase once is reasonable. Force-pushing is not. A portable workflow should prefer an explicit conflict over silently replacing someone else's knowledge.
 
-## 5. Shared Memory and Private Memory Are Different
+## 5. Shared memory and private memory are different
 
 Memory is often described as one thing. It is not.
 
@@ -189,7 +189,7 @@ This separation prevents a common failure mode: treating convenience as authoriz
 
 The shared layer should contain facts that are safe and useful across devices or agents. Private runtime memory can contain working context. Secrets should not be represented as ordinary knowledge at all.
 
-## 6. Secret Scanning Is a Stage, Not a Promise
+## 6. Secret scanning is a stage, not a promise
 
 A final secret scan is useful, but it should not be the only safety mechanism. I prefer staged checks:
 
@@ -215,7 +215,7 @@ fi
 
 The scanner is not a substitute for judgment. It is a second pair of eyes that makes accidental publication harder.
 
-## 7. Why Portable Beats Clever Here
+## 7. Why portable beats clever here
 
 A system like this could become a product with a service, a vector database, a dashboard, and a dozen background workers. Those tools can be useful. They also create more infrastructure that an agent must understand before it can safely write anything.
 
@@ -231,7 +231,7 @@ This does not solve every knowledge problem. It does make the failure modes visi
 
 That trade-off is worth it to me. Agents should be allowed to be creative while reasoning. The moment they touch durable state, the system should become boring, explicit, and reviewable.
 
-## 8. The Practical Contract
+## 8. The practical contract
 
 The whole design can be summarized in a few rules:
 

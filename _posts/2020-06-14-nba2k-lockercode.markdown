@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "How I Always Got 2k Locker Code Update"
+title:  "How I always got the 2K locker code update"
 date:   2020-06-14 08:18:35 +0700
 categories: blog
 ---

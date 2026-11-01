@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Why You Should Switch Git Identities Per Project (Using git includeIf)"
+title:  "Why you should switch Git identities per project (using git includeIf)"
 date:   2026-07-12
 categories: [learnings]
 ---
@@ -16,7 +16,7 @@ We've all been there. And every time, you tell yourself: "I'll check my git conf
 
 The fix is simpler than you think, and it's built into git itself: **`includeIf`**.
 
-## 0. The Problem: One Global Identity Doesn't Fit
+## 0. The problem: one global identity doesn't fit
 
 By default, most of us set up git like this:
 
@@ -39,7 +39,7 @@ But this is manual. You'll forget. Or you'll clone a new repo at 2am and push si
 
 There's a better way.
 
-## 1. What Is includeIf?
+## 1. What is includeIf?
 
 Since git 2.13, you can conditionally include other config files based on the repo's directory path. It looks like this in `~/.gitconfig`:
 
@@ -55,7 +55,7 @@ This means:
 - Each "zone" (`~/work/`, `~/clients/`, etc.) gets its own config file with a different identity
 - Git auto-switches — you never think about it again
 
-## 2. The Setup
+## 2. The setup
 
 ### Step 1: Strip identity from your global config
 
@@ -113,7 +113,7 @@ Add to `~/.gitconfig`:
 
 That's it. Commit from anywhere under `~/work/some-repo/` and git uses the work email. No manual config. No second-guessing.
 
-## 3. How It Works Under the Hood
+## 3. How it works under the hood
 
 When git reads config, it processes files in order:
 
@@ -155,7 +155,7 @@ Chain of precedence (last wins): `~/.gitconfig` → `includeIf` target → `.git
 
 So a personal repo at `~/personal/my-project` picks up the default identity, and a work repo at `~/work/company-app` picks up the work identity — and you can still override at the repo level if a specific project needs something different.
 
-## 4. Pro Tips
+## 4. Pro tips
 
 ### a) Multiple paths for the same zone
 
@@ -193,7 +193,7 @@ git config user.email
 
 Run these once after cloning a new repo to confirm the right identity is active. If you see the wrong one, check your includeIf paths.
 
-## 5. Why Bother?
+## 5. Why bother?
 
 Two reasons, and neither is theoretical.
 
@@ -203,7 +203,7 @@ Two reasons, and neither is theoretical.
 
 And honestly? It takes two minutes to set up. The first time it saves you from a "oops, that was my personal email on the client repo" conversation, you'll wonder why you didn't do it sooner.
 
-## 6. The Catch
+## 6. The catch
 
 `includeIf` works by **directory path only**. If your repo layout is chaotic — work projects mixed with personal projects in the same parent folder — you'll need to organise your directories first, or fall back to repo-local `git config` per clone.
 

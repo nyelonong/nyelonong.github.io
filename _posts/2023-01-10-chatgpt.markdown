@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Introducing ChatGPT: The New Era of Conversational AI"
+title:  "Introducing ChatGPT: the new era of conversational AI"
 date:   2023-01-10 10:45:35 +0700
 categories: blog
 ---

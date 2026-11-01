@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Unleashing Productivity: Managing Development Across Multiple Machines with nix and home-manager"
+title:  "Managing development across multiple machines with nix and home-manager"
 date:   2024-03-05 10:45:35 +0700
 categories: blog
 ---
@@ -9,49 +9,49 @@ categories: blog
 
 We often demands flexibility and the ability to work seamlessly across multiple machines. Managing our development environment consistently on different devices can be a challenging task. In this blog post, we'll explore how [nix](https://nixos.org/manual/nix/stable) and [home-manager](https://nix-community.github.io/home-manager) can be powerful allies in ensuring a consistent and efficient development experience, regardless of the machine you're working on.
 
-# Navigating the Challenges of Multiple Machines:
+# Navigating the challenges of multiple machines:
 Working on various machines introduces complexities such as differing operating systems, hardware configurations, and software versions. Here's how nix and home-manager come to the rescue:
 
-## Consistent Environments with Nix Flakes:
+## Consistent environments with Nix flakes:
 
 1. Define a nix flakes for your project, encapsulating all dependencies and environment configurations.
 2. This ensures that the development environment remains consistent across different machines, reducing compatibility issues.
 
-## Reproducible Builds:
+## Reproducible builds:
 
 1. Nix Flakes' focus on reproducibility guarantees that your builds are consistent, regardless of the machine.
 2. This eradicates the "it works on my machine" dilemma, making collaboration and sharing among team members a seamless process.
 
-## Portable Development with Home-Manager:
+## Portable development with home-manager:
 
 1. Home-manager allows you to configure your user environment, making it portable across machines.
 2. Customizations, environment variables, and user-level services are defined in a single configuration file, easily transferable between devices.
 
-# Practical Strategies for Software Architects:
+# Practical strategies for software architects:
 
-## Centralized Configuration with Nix Flakes:
+## Centralized configuration with Nix flakes:
 
 1. Store your Nix Flake configuration in version control, making it accessible from any machine.
 2. This centralization ensures that all team members can quickly set up their development environments with minimal effort.
 
-## User-Focused Configuration with Home-Manager:
+## User-focused configuration with home-manager:
 
 1. Leverage Home-Manager to personalize your user environment.
 2. Manage user-level packages, shell configurations, and other settings specific to your preferences, all in one place.
 
-## Automate Setup and Updates:
+## Automate setup and updates:
 
 1. Create scripts that automate the setup of Nix Flakes and Home-Manager on a new machine.
 2. Regularly update your configurations to include the latest improvements, ensuring a consistently optimized development environment.
 
-# Seamless Transitions Between Machines:
+# Seamless transitions between machines:
 
-## Effortless Onboarding:
+## Effortless onboarding:
 
 1. New team members can quickly set up their development environments by cloning the project repository and executing Nix Flake commands.
 2. Home-Manager configurations make it easy to replicate a personalized environment, streamlining the onboarding process.
 
-## Version-Controlled Configurations:
+## Version-controlled configurations:
 
 1. Ensure that your Nix Flake and Home-Manager configurations are stored in version control.
 2. This practice allows you to track changes, collaborate effectively with team members, and roll back to previous configurations if needed.
@@ -134,7 +134,7 @@ $ # It will download and run home-manager
 $ nix run github:nix-community/home-manager -- switch --flake .
 ```
 
-## Install More packages
+## Install more packages
 We can search more pkgs on the nixOS website https://search.nixos.org/packages or in the terminal with 
 
 ```sh

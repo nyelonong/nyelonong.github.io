@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Two Years of nix and home-manager: What I Got Wrong"
+title:  "Two years of nix and home-manager: what I got wrong"
 date:   2026-07-14
 categories: [learnings]
 ---
@@ -16,7 +16,7 @@ It promised multiple machines. It shipped one.
 
 This is not a breakup post. I still run home-manager every day, on three machines now, and I would make the same choice again. This is the errata: what the first post got wrong, and what two years of actually living with it taught me.
 
-## 0. The Ten-Second Recap
+## 0. The ten-second recap
 
 If you have never touched nix, here is the whole idea. You write a file that describes your `$HOME`. Packages, dotfiles, shell config, environment variables:
 
@@ -35,7 +35,7 @@ And your home directory *becomes that file*. Not "runs a script that mostly gets
 
 That part I got right. Everything below is what I got wrong.
 
-## 1. What I Should Have Led With: Rollback
+## 1. What I should have led with: rollback
 
 My first post sold nix on "consistency" and "reproducibility". Fine words. They are also what every dotfiles README claims, including the ones that are a 400-line bash script held together by `ln -sf` and hope.
 
@@ -60,7 +60,7 @@ You are back to 01:15. Not "back to what the script thinks 01:15 looked like". B
 
 I buried it. If you take one thing from this post, take that.
 
-## 2. Mistake: I Let Nix Own My Language Runtimes
+## 2. Mistake: I let Nix own my language runtimes
 
 My 2024 `home.nix` had this in it:
 
@@ -99,7 +99,7 @@ I have never once wanted a different `jq` in a different directory. Same for `ri
 
 (`autojump` was also a mistake, incidentally. It is unmaintained. It is `zoxide` now. But that one is just a package swap, not a lesson.)
 
-## 3. Mistake: I Never Actually Delivered "Multiple Machines"
+## 3. Mistake: I never actually delivered "multiple machines"
 
 The 2024 post's title said multiple machines. The 2024 `flake.nix` said:
 
@@ -178,7 +178,7 @@ The fix is a two-stage bootstrap. Stage one is a public gist containing a generi
 
 The whole new-machine ritual is one line now, and every step is re-runnable. Run it twice and the second run quietly skips everything already done.
 
-## 4. Mistake: Nobody Told Me My Dotfiles Would Become Read-Only
+## 4. Mistake: nobody told me my dotfiles would become read-only
 
 This one cost me an evening, and it is the single thing I most wish someone had put in bold in a blog post.
 
@@ -214,7 +214,7 @@ home-manager switch --flake .#zaki
 
 The error message will never mention git. Every nix user learns this once, angrily.
 
-## 5. The Catch: What Nix Does Not Solve
+## 5. The catch: what Nix does not solve
 
 The 2024 post had no section like this, which is the most dishonest thing about it. Nix is not a magic wand, and pretending otherwise just sets people up to blame themselves when it does not fit.
 
