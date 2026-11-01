@@ -1,7 +1,7 @@
 <header class="site-header">
-  <a class="site-mark" href="{{ site.baseurl }}/">al<span>.</span>afrani.id</a>
-  <span class="specimen">No. 01 · notes</span>
+  <a class="site-mark" href="{{ site.baseurl }}/">al.afrani.id</a>
   <nav class="site-nav" aria-label="Primary navigation">
-    <a href="https://afrani.id">garden</a>
+    {% for nav in site.nav %}<a href="{{ site.baseurl }}/{{ nav.href }}">{{ nav.name | downcase }}</a>{% endfor %}
+    <a href="https://afrani.id">afrani.id ↗</a>
   </nav>
 </header>

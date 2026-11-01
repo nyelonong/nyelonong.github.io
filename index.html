@@ -3,26 +3,26 @@ layout: default
 ---
 {% include site-header.html %}
 <main class="notes-index">
-  <section class="notes-introduction" aria-labelledby="notes-title">
-    <p class="label">Field notebook</p>
-    <h1 id="notes-title">Notes from<br>the workbench.</h1>
-    <p>A place for systems, tools, mistakes, and the ways work gets done.</p>
-  </section>
-  <section class="notes-list" aria-label="Posts">
+  <h1 class="visually-hidden">Notes</h1>
   {% if site.posts.size == 0 %}
-    <p class="empty-notes">No notes yet.</p>
+  <p class="empty-notes">No notes yet.</p>
   {% else %}
-  {% for post in site.posts %}
-    {% assign words = post.content | strip_html | number_of_words %}
-    {% assign minutes = words | divided_by: 200.0 | ceil %}
-    <article class="note-entry">
-      <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%d %b %y" }}</time>
-      <div>
-        <h2><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h2>
-        <p>{{ minutes }} min read</p>
-      </div>
-    </article>
+  {% assign years = site.posts | group_by_exp: "post", "post.date | date: '%Y'" %}
+  {% for year in years %}
+  <section aria-labelledby="year-{{ year.name }}">
+    <h2 class="year" id="year-{{ year.name }}">{{ year.name }}</h2>
+    <ol class="notes-list">
+    {% for post in year.items %}
+      {% assign words = post.content | strip_html | number_of_words %}
+      {% assign minutes = words | divided_by: 200.0 | ceil %}
+      <li>
+        <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%d %b" }}</time>
+        <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
+        <span class="minutes">{{ minutes }} min</span>
+      </li>
+    {% endfor %}
+    </ol>
+  </section>
   {% endfor %}
   {% endif %}
-  </section>
 </main>

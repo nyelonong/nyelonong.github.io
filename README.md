@@ -1,7 +1,7 @@
 # nyelonong.github.io
 
 Personal blog at [al.afrani.id](https://al.afrani.id). Jekyll, built and served
-by GitHub Pages from `master`. Themed with [Kiko](http://github.com/gfjaru/Kiko).
+by GitHub Pages from `master`.
 
 ## Local preview
 
