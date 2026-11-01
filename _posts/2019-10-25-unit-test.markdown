@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Unit Test: Is It Worth Your Time ?"
+title:  "Unit tests: are they worth your time?"
 date:   2019-10-25 00:05:35 +0700
 categories: blog
 ---

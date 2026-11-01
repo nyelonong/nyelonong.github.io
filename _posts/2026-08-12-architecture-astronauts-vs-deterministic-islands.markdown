@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Architecture Astronauts vs Deterministic Islands"
+title:  "Architecture astronauts vs deterministic islands"
 date:   2026-08-12
 categories: [blog]
 ---
@@ -16,7 +16,7 @@ And suddenly the boxes are not helping.
 
 ***
 
-# 0. The Problem With Flying Too High
+# 0. The problem with flying too high
 
 An architecture astronaut is not someone who likes architecture. Architecture is useful. The problem starts when we stay at a high level for so long that we forget the actual problem, constraints, failure modes, cost, and behavior of the real system.
 
@@ -42,7 +42,7 @@ What problem are we solving? What must always be true? What can be eventually co
 
 If we cannot answer those questions, a more impressive architecture diagram will not save us.
 
-# 1. The Grounding Pattern: A Deterministic Island
+# 1. The grounding pattern: a deterministic island
 
 A deterministic island is a deliberately small part of a larger system where the important decision is reproducible and verifiable.
 
@@ -69,7 +69,7 @@ It is a claim about boundaries: the part that decides correctness should not dep
 
 The model may propose. The external system supplies facts. The policy decides. The executor performs the effect.
 
-# 2. Why Autonomous Coding Makes This More Important
+# 2. Why autonomous coding makes this more important
 
 An autonomous coding system is useful precisely because it can operate in uncertain space. It can read an issue, understand intent, generate a patch, inspect a failure, and choose a tool.
 
@@ -98,7 +98,7 @@ The shell is where flexibility lives. The island is where blast radius is contro
 
 The mistake is asking the agent to be both the planner and the source of truth. An agent can say, "the checks passed," but that sentence is not a check result. It is a claim that must be verified against the system that owns the check data.
 
-# 3. A Small Invariant Beats a Large Workflow Diagram
+# 3. A small invariant beats a large workflow diagram
 
 Suppose we have a workflow that moves a work item to `DONE` after an agent finishes a change. The requirement sounds simple:
 
@@ -138,7 +138,7 @@ next_state = transition(current_state, event, verified_facts)
 
 Given the same current state, event, and facts, the decision should be the same. A deterministic system can still use a database and an event stream. Deterministic does not mean stateless. It means the decision logic is explicit enough to test and replay.
 
-# 4. State Machines Are Not Overengineering Here
+# 4. State machines are not overengineering here
 
 People sometimes hear "state machine" and imagine a framework, a DSL, and several weeks of ceremony. We do not need that.
 
@@ -164,7 +164,7 @@ A good deterministic island usually has these properties:
 
 This gives us something we can test without asking a model to recreate the same thought twice.
 
-# 5. The Boundary Is the Architecture
+# 5. The boundary is the architecture
 
 Here is the provocative part: the deterministic island is not a minor implementation detail. It is often the most important architectural decision in the system.
 
@@ -190,7 +190,7 @@ Model suggestion → validation → preview → approval → side effect
 
 The agent can draft a patch freely. It should not silently merge code because its own summary says the patch is safe.
 
-# 6. What This Does Not Solve
+# 6. What this does not solve
 
 A deterministic island is a grounding pattern, not a magic shield.
 
@@ -208,7 +208,7 @@ So the island still needs engineering:
 
 The goal is not perfect certainty. The goal is to make uncertainty visible and prevent it from pretending to be certainty.
 
-# 7. The Rule I Keep Coming Back To
+# 7. The rule I keep coming back to
 
 Architecture astronautics starts with abstractions and hopes reality will fit them later.
 

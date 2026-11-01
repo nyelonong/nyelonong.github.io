@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Do It Realtime"
+title:  "Do it realtime"
 date:   2016-05-01 14:11:39 +0700
 categories: blog
 ---

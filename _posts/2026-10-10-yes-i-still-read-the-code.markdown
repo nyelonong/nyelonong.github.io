@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Yes, I Still Read the Code."
+title:  "Yes, I still read the code."
 date:   2026-10-10 15:36:04 +0700
 categories: [learnings]
 ---
@@ -15,7 +15,7 @@ But when a change goes into my project, “the agent wrote it” is not a very g
 
 ***
 
-## 1. I Want the Summary. Then I Want the Diff.
+## 1. I want the summary. Then I want the diff.
 
 An agent finishes a task and gives me a neat report:
 
@@ -39,7 +39,7 @@ Did we solve the problem I asked about? Did we quietly change something else? Is
 
 Sometimes the patch is perfectly fine. Reading it is how I arrive at that conclusion.
 
-## 2. Reading Code Is Not Retyping It
+## 2. Reading code is not retyping it
 
 There is a strange assumption that reviewing AI-written code somehow defeats the purpose of using AI.
 
@@ -60,7 +60,7 @@ That is not an argument for making every task slow. It is an argument for spendi
 
 The useful part of delegation is not that I stop thinking. It is that I can spend less time producing the patch and more attention deciding whether it belongs.
 
-## 3. So I Made the Review Easier to Read
+## 3. So I made the review easier to read
 
 While building my review tooling, I kept running into very ordinary problems.
 
@@ -80,7 +80,7 @@ It looks fairly boring. That is intentional.
 
 I am not looking for a dashboard that celebrates how much code the agent generated. I want to see what changed.
 
-## 4. “Request Changes” Needs More Than a Button
+## 4. “Request changes” needs more than a button
 
 Suppose I notice a problem halfway through a patch.
 
@@ -111,7 +111,7 @@ Those are not all different spellings of “no.”
 
 A review should communicate what happens next, not merely record that I disliked something.
 
-## 5. Approved Which Version?
+## 5. Approved which version?
 
 There is another detail that becomes important once the agent can keep editing.
 
@@ -139,7 +139,7 @@ It answers a narrower question:
 
 It is also not a sandbox against a process with unrestricted write access. It supports an explicit review workflow; it does not magically enforce trust.
 
-## 6. The Tool Supports the Habit
+## 6. The tool supports the habit
 
 I built this review surface as **task-review**, part of [agent-workflow](https://github.com/nyelonong/agent-workflow).
 

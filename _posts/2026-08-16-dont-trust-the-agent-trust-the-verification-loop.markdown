@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Don’t Trust the Agent. Trust the Verification Loop."
+title:  "Don’t trust the agent. Trust the verification loop."
 date:   2026-08-16
 categories: [blog]
 ---
@@ -15,7 +15,7 @@ I have been building a small autonomous engineering workflow where different age
 
 The answer is uncomfortable but useful: do not try to trust the agent as an individual. Design the surrounding system so wrong work becomes visible, damage stays bounded, and consequential actions require evidence.
 
-## 0. “Done” Is Not Evidence
+## 0. “Done” is not evidence
 
 Let’s start with the most dangerous completion signal: the agent saying it is finished.
 
@@ -37,7 +37,7 @@ A better rule is simple:
 
 > The agent’s confidence can be part of the context. It cannot be the gate.
 
-## 1. Confidence Is Not a Stop Condition
+## 1. Confidence is not a stop condition
 
 Many agent workflows accidentally loop on confidence. The worker makes a change, says it looks good, and the orchestrator treats that statement as permission to move on.
 
@@ -79,7 +79,7 @@ The stop condition is not “the model sounds certain.” The stop condition is 
 
 This may look slower than accepting a confident answer. In practice, it is much faster than debugging a change that was allowed to escape because everyone mistook fluency for correctness.
 
-## 2. The Worker Should Not Be the Sole Verifier
+## 2. The worker should not be the sole verifier
 
 The person who writes a change can review it, of course. But they should not be the only review mechanism for work that matters. The same is true for an AI worker.
 
@@ -106,7 +106,7 @@ The reviewer is not there to produce another friendly summary. Its job is to cha
 
 Role separation is useful even with strong models. A second model is not automatically independent, but a fresh task, fresh context, and a different responsibility make independent judgment more likely.
 
-## 3. Fresh Context Beats Shared Confidence
+## 3. Fresh context beats shared confidence
 
 A reviewer should not inherit the worker’s entire reasoning transcript and then simply agree with it. That is how shared confidence turns into shared blind spots.
 
@@ -140,7 +140,7 @@ A fresh reviewer should ask:
 
 The reviewer is allowed to reach the same conclusion as the worker. Agreement is fine. The important part is that agreement is earned independently rather than copied from the previous explanation.
 
-## 4. Deterministic Anchors Are the Floor
+## 4. Deterministic anchors are the floor
 
 Models are good at interpretation. They are not a replacement for tools that can answer exact questions.
 
@@ -164,7 +164,7 @@ There is an important limit here: passing tests do not prove that the feature is
 
 That is why they work together with independent review. The reviewer checks meaning and scope. The anchors check repeatable mechanical facts. Neither should pretend to cover the other’s blind spots.
 
-## 5. Revision Loops Need a Boundary
+## 5. Revision loops need a boundary
 
 A useful review system does not merely return “approved” or “rejected.” It creates a bounded revision loop.
 
@@ -191,7 +191,7 @@ Escalation is not a failure of automation. It is a healthy output. The system ha
 
 This is one place where an engineering methodology such as Galdr fits naturally: the value is not in giving an agent a grand personality, but in making the workflow explicit, evidence-driven, and repeatable. The method should make it difficult for a model to silently convert uncertainty into progress.
 
-## 6. Human Approval Belongs at the Consequential Edge
+## 6. Human approval belongs at the consequential edge
 
 There is a difference between allowing an agent to prepare a change and allowing it to release that change.
 
@@ -217,7 +217,7 @@ In an anonymized personal engineering experiment, the agents could plan work, im
 
 That distinction is important. Human-in-the-loop does not mean human-as-keyboard-monitor. It means human-as-accountability-holder.
 
-## 7. Trust Is a Property of the System
+## 7. Trust is a property of the system
 
 We often describe models with personality words: honest, careful, confident, lazy, stubborn. These descriptions can be useful shorthand, but they are not an engineering control.
 
@@ -252,7 +252,7 @@ Who must approve the irreversible step?
 
 Those questions are less exciting than a demo where an agent edits a project overnight. They are much more useful when the project matters.
 
-## 8. A Practical Checklist
+## 8. A practical checklist
 
 Before letting an agent work on a consequential engineering task, ask:
 

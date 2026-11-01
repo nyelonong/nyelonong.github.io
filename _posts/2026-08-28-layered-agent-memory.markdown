@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Your AI Agent Doesn't Need One Giant Memory"
+title:  "Your AI agent doesn't need one giant memory"
 date:   2026-08-28
 categories: [blog]
 ---
@@ -16,7 +16,7 @@ It remembered everything. It understood almost nothing.
 
 So, do agents need more memory? Or do they need better boundaries?
 
-# 0. Memory Is Not One Thing
+# 0. Memory is not one thing
 
 When we say "memory", we often mean several different systems at once:
 
@@ -49,7 +49,7 @@ A more useful design looks like this:
 
 The important word is *selective*. The agent should not load all four layers for every question.
 
-# 1. Layer One: Small Built-in Memory
+# 1. Layer one: small built-in memory
 
 The first layer is intentionally boring. That is a feature.
 
@@ -78,7 +78,7 @@ A good rule is:
 
 > If the agent needs it on almost every task, and a human can verify it in a few seconds, it may belong here.
 
-# 2. Layer Two: Searchable Long-Term Semantic Memory
+# 2. Layer two: searchable long-term semantic memory
 
 The second layer is where durable details live. It is searchable instead of automatically present.
 
@@ -115,7 +115,7 @@ The exact schema can differ, but the ideas matter:
 
 Without these fields, semantic memory quietly turns into a pile of confident-sounding sentences.
 
-## 2.1 Memory Has a Lifecycle
+## 2.1 Memory has a lifecycle
 
 A useful fact does not live forever just because it was once true.
 
@@ -138,7 +138,7 @@ This also makes debugging possible. When an agent gives a strange answer, we can
 
 That is much better than staring at a huge prompt and asking, "Which sentence confused it?"
 
-# 3. Layer Three: The Knowledge Vault
+# 3. Layer three: the knowledge vault
 
 A knowledge vault is for full documents and source material:
 
@@ -170,7 +170,7 @@ The authentication decision requires short-lived access tokens.
 
 The vault should contain the decision record explaining *why*, including alternatives, trade-offs, and the date. One is a useful index card. The other is the evidence.
 
-# 4. Layer Four: Conversation History
+# 4. Layer four: conversation history
 
 Conversation history is valuable, but it is not automatically permanent truth.
 
@@ -196,7 +196,7 @@ conversation -> candidate fact -> validation -> semantic memory
 
 A message can be *evidence for* a memory without becoming the memory itself. This small distinction prevents a casual sentence from turning into a long-lived rule.
 
-# 5. Compaction Is Not Memory
+# 5. Compaction is not memory
 
 There is one more concept that often gets mixed into this architecture: *compaction*.
 
@@ -225,7 +225,7 @@ So the architecture has four information layers or roles:
 
 Compaction sits beside those layers as context management. It changes what is loaded into the current prompt; it does not create a new kind of durable information.
 
-# 6. Selective Retrieval Beats Prompt Stuffing
+# 6. Selective retrieval beats prompt stuffing
 
 The tempting implementation is straightforward:
 
@@ -258,7 +258,7 @@ This is not a complete retrieval system, but it captures the important design ch
 
 Fewer irrelevant tokens usually means lower cost and less opportunity for contradictory context. More context is not automatically more intelligence.
 
-# 7. Privacy Boundaries Are Part of the Architecture
+# 7. Privacy boundaries are part of the architecture
 
 Layering is also a privacy mechanism.
 
@@ -282,7 +282,7 @@ Consider the difference between:
 
 Putting them in one bucket makes accidental disclosure much more likely. Separate layers, scopes, and retrieval policies make the safe path the normal path.
 
-# 8. Why This Is Easier to Debug and Cheaper
+# 8. Why this is easier to debug and cheaper
 
 A single memory bucket creates several mysteries:
 
@@ -304,7 +304,7 @@ We can also measure each layer separately: hit rate, stale-record rate, token us
 
 That is the practical benefit. A layered architecture is not just cleaner on a diagram. It gives us knobs to tune instead of one giant prompt to fear.
 
-# 9. The Rule I Keep Coming Back To
+# 9. The rule I keep coming back to
 
 An agent should not remember everything. It should remember the *right kind of thing in the right place*.
 

@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "The Cheapest Model Is Not Always the Cheapest Workflow"
+title:  "The cheapest model is not always the cheapest workflow"
 date:   2026-08-23 01:12:23 +0700
 categories: [learnings]
 ---
@@ -23,7 +23,7 @@ It is:
 
 > Which model completes this type of work with the least total effort and risk?
 
-## 0. Token Cost Is Only One Cost
+## 0. Token cost is only one cost
 
 A useful mental model looks like this:
 
@@ -44,7 +44,7 @@ The model was cheaper.
 
 The workflow was not.
 
-## 1. Not Every Task Needs the Same Model
+## 1. Not every task needs the same model
 
 I stopped treating model selection as a single global default.
 
@@ -64,7 +64,7 @@ It is about matching reasoning capacity to the cost of being wrong.
 
 A short blog summary does not need the same level of reasoning as a migration that can damage production data. Treating both tasks identically is convenient, but it is not a strategy.
 
-## 2. Route by Consequence, Not Excitement
+## 2. Route by consequence, not excitement
 
 A task can sound complicated without being risky.
 
@@ -109,7 +109,7 @@ high_risk:
 
 The exact model names do not matter here. The policy matters more than the names.
 
-## 3. Escalation Is Part of the Design
+## 3. Escalation is part of the design
 
 Routing does not mean choosing once and forgetting.
 
@@ -143,7 +143,7 @@ It only needs to be appropriate for the current evidence.
 
 If the task grows beyond its original scope, escalation is cheaper than forcing the same model through repeated repair loops.
 
-## 4. A Global Default Is Convenient, Not Optimal
+## 4. A global default is convenient, not optimal
 
 A single global default has one major advantage: simplicity.
 
@@ -168,7 +168,7 @@ balanced default
 
 This keeps the system simple without pretending that every task has the same cost of failure.
 
-## 5. Measure the Workflow, Not Just the Model
+## 5. Measure the workflow, not just the model
 
 Token price is easy to see, so it is tempting to optimize only for it.
 
@@ -197,7 +197,7 @@ cost per accepted result
 
 That includes the work required to turn the first output into something we can actually use.
 
-## 6. This Is a Policy, Not a Benchmark
+## 6. This is a policy, not a benchmark
 
 There is no universal model-routing table.
 

@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Go HTTP Client"
+title:  "Go HTTP client"
 date:   2016-09-03 23:53:39 +0700
 categories: blog
 ---

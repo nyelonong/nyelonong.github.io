@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Marhaban Ya Ramadhan"
+title:  "Marhaban ya Ramadhan"
 date:   2016-06-05 16:11:39 +0700
 categories: blog
 ---

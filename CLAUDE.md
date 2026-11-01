@@ -37,11 +37,14 @@ default one, so `Gemfile`/`vendor` entries are repeated there defensively.
 
 ## Architecture
 
-Stock Jekyll, themed with [Kiko](http://github.com/gfjaru/Kiko), whittled down:
+Stock Jekyll with a small hand-written theme, the reading room of afrani.id:
 
-- `_layouts/default.html` — the only page shell (`<head>`, container). `post.html` and `page.html`
-  nest inside it via `layout: default` and supply the masthead plus title block.
-- `index.html` — the post list. `feed.xml` — hand-written RSS (`layout: null`).
+- `_layouts/default.html` — the only page shell (`<head>` and a centred `.page` column: wider on the
+  index, about 65 characters on posts and pages). `post.html` and `page.html` nest inside it via
+  `layout: default` and add `_includes/site-header.html`, the title and `reading-footer.html`.
+- Titles and headings are sentence case, written that way in the source; CSS cannot lowercase safely
+  because it would break names such as AI, Git and DNS.
+- `index.html` — the post list, grouped by year with `group_by_exp`. `feed.xml` — hand-written RSS (`layout: null`).
 - `_config.yml` `defaults:` assigns `layout: post` to everything in `_posts/` and `layout: page` to
   pages, so front matter usually needn't repeat it (existing posts do anyway).
 - `style.scss` — the entire stylesheet, one self-contained file with `---` front matter so Jekyll

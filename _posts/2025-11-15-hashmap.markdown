@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Hashmap Is Not Really O(1)"
+title:  "Hashmap is not really O(1)"
 date:   2025-11-15 08:56:35 +0700
 categories: blog
 ---
@@ -24,7 +24,7 @@ Well… not really.
 
 Let’s break the illusion.
 
-# 0. What Exactly Is a Hashmap?
+# 0. What exactly is a hashmap?
 A hashmap (or hash table) is a data structure that stores key -> value pairs and uses a hash function to decide where each key should live in memory.
 
 Conceptually, it looks like this:
@@ -65,7 +65,7 @@ Hashmap operations are **O(1)**. This is true in an academic sense, but misleadi
 
 Let’s break it down.
 
-## 0.1 Core Structure
+## 0.1 Core structure
 A hash map consists of two main components:
 
 ### The bucket array
@@ -84,7 +84,7 @@ index 2: bucket pointer
 index 7: bucket pointer
 ```
 
-### Bucket / Entry list
+### Bucket / entry list
 A bucket may contain:
 - 0 entries
 - 1 entry
@@ -99,7 +99,7 @@ entry {
     overflow
 }
 ```
-## 0.2 How Lookup Works
+## 0.2 How lookup works
 Suppose you do:
 ```go
 value := m["hello"]
@@ -142,7 +142,7 @@ So the key will be searched in bucket **#6**.
 >**No memory** access has happened yet.
 >This is all done in **CPU registers**.
 
-### Step 3 - Load the Bucket Pointer
+### Step 3 - Load the bucket pointer
 We stores an array of bucket pointers:
 ```go
 bucketPtr := h.buckets[index]
@@ -161,7 +161,7 @@ type bucket struct {
 
 Now it will inspect the tophash.
 
-### Step 4 - Use High Bits of the Hash (tophash) to Filter Slots
+### Step 4 - Use high bits of the hash (tophash) to filter slots
 Extracts the top 8 bits of the hash:
 ```
 top = hash >> (64 - 8)    // highest 8 bits
@@ -247,7 +247,7 @@ If not -> skip slot.
 
 This drastically accelerates lookup.
 
-### Step 5 - If No Match Found, Follow Overflow Buckets
+### Step 5 - If no match found, follow overflow buckets
 If none of the 8 slots in the bucket match:
 
 ```
@@ -268,7 +268,7 @@ for each overflowBucket in chain:
             return overflowBucket.values[i], true
 ```
 
-## 0.3 How Insert Works
+## 0.3 How insert works
 We follow the same process until we got the **bucket index (Step 2)**.
 
 ### Step 3 - Place entry into bucket
@@ -297,7 +297,7 @@ use newOverflow.slot[0]
 
 Some programminng languages use linked list (**O(n)**) or balanced trees (**O(log n)**) to handle the collison
 
-#### New Overflow Bucket
+#### New overflow bucket
 Allocates an overflow bucket and inserts the new key/value into that overflow bucket.
 
 Criteria ```Load factor = number of entries / number of buckets```
@@ -331,7 +331,7 @@ Latency
    O(1-ish)
 ```
 
-# 1. Hashmaps Are Only O(1) Under Perfect Assumptions
+# 1. Hashmaps are only O(1) under perfect assumptions
 The textbooks assume:
 - perfect hash distribution
 - no collisions
