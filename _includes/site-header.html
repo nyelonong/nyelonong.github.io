@@ -1,5 +1,6 @@
+{% if page.url == '/' %}<div class="tree-slot" aria-hidden="true"></div>{% endif %}
 <header class="site-header">
-  <a class="site-mark" href="{{ site.baseurl }}/">al.afrani.id</a>
+  <a class="site-mark" href="{{ site.baseurl }}/">{% unless page.url == '/' %}<canvas width="60" height="76" aria-hidden="true"></canvas>{% endunless %}al.afrani.id</a>
   <nav class="site-nav" aria-label="Primary navigation">
     <a href="https://afrani.id">afrani.id ↗</a>
   </nav>

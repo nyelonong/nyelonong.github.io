@@ -28,45 +28,45 @@
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
-// The reading room of afrani.id: same calm ground, small mono chrome, a serif sized for long reading.
+// IBM Plex Mono (OFL, fonts/IBM-PLEX-MONO-OFL.txt) for the chrome, self-hosted like Charis SIL.
+@font-face {
+  font-family: "IBM Plex Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/ibm-plex-mono-latin-400-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "IBM Plex Mono";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/fonts/ibm-plex-mono-latin-500-normal.woff2") format("woff2");
+}
+
+// The reading room of afrani.id, in its world: the same dark ground and top glow, its tree of dust, sage as the
+// accent. Dark always, like galdr.discoverd.io, discoverd.io and afrani.id.
 :root {
-  color-scheme: light dark;
-  --ground: #f6f4ef;
-  --ink: #1c1e1d;
-  --muted: #646864;
-  --rule: rgba(28, 30, 29, .12);
-  --surface: #ece9e2;
-  --syn-keyword: #1c1e1d;
-  --syn-comment: #6c706c;
-  --syn-string: #3f6145;
-  --syn-type: #3d5f74;
-  --syn-name: #4f5f68;
-  --syn-function: #8a4a2e;
-  --syn-mark: rgba(196, 160, 60, .22);
-  --syn-deleted: rgba(170, 80, 60, .14);
-  --syn-inserted: rgba(80, 130, 90, .16);
+  color-scheme: dark;
+  --ground: #0c0f10;
+  --glow: #16201f;
+  --ink: #e6ebe7;
+  --muted: #87918d;
+  --sage: #9fe0bd;
+  --rule: rgba(230, 235, 231, .12);
+  --surface: #131819;
+  --syn-keyword: #e6ebe7;
+  --syn-comment: #87918d;
+  --syn-string: #a7c4a0;
+  --syn-type: #9cbcd0;
+  --syn-name: #b8c7cf;
+  --syn-function: #e0a184;
+  --syn-mark: rgba(233, 211, 138, .14);
+  --syn-deleted: rgba(224, 138, 105, .16);
+  --syn-inserted: rgba(168, 196, 160, .16);
   --serif: "Charis SIL", Charter, "Iowan Old Style", Georgia, serif;
   --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   --gutter: clamp(20px, 3.2vw, 44px);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --ground: #0c0f10;
-    --ink: #dfe4e0;
-    --muted: #7f8985;
-    --rule: rgba(223, 228, 224, .12);
-    --surface: #141819;
-    --syn-keyword: #dfe4e0;
-    --syn-comment: #7f8985;
-    --syn-string: #a7c4a0;
-    --syn-type: #9cbcd0;
-    --syn-name: #b8c7cf;
-    --syn-function: #e0a184;
-    --syn-mark: rgba(233, 211, 138, .14);
-    --syn-deleted: rgba(224, 138, 105, .16);
-    --syn-inserted: rgba(168, 196, 160, .16);
-  }
 }
 
 * {
@@ -78,10 +78,14 @@ html {
   text-size-adjust: 100%;
 }
 
+html {
+  background: var(--ground);
+}
+
 body {
   margin: 0;
   min-width: 320px;
-  background: var(--ground);
+  background: radial-gradient(110% 520px at 50% 0%, var(--glow) 0%, var(--ground) 100%) no-repeat var(--ground);
   color: var(--ink);
   font: 400 18px/1.65 var(--serif);
 }
@@ -117,8 +121,55 @@ a:focus-visible {
   white-space: nowrap;
 }
 
+// The dust (js/tree-dust.js): the tree and embers behind the index, the titles' specks above the text.
+#field,
+#ink {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+#field {
+  z-index: 0;
+}
+#ink {
+  z-index: 2;
+}
+.w {
+  white-space: pre-wrap;
+}
+// The tree's space opens only when WebGL can draw it; the small tree beside the name likewise.
+.tree-slot {
+  display: none;
+}
+.dust-tree .tree-slot {
+  display: block;
+  height: clamp(220px, 34vh, 340px);
+}
+.site-mark canvas {
+  display: none;
+}
+.dust-tree .site-mark canvas {
+  display: block;
+  width: 30px;
+  height: 38px;
+}
+// Titles wait for their dust; if the script never runs, they appear on their own after 2.5 s.
+@keyframes reveal {
+  to { opacity: 1; }
+}
+.dust-titles .notes-list a,
+.dust-titles .post-title {
+  opacity: 0;
+  animation: reveal .4s 2.5s forwards;
+}
+
 // One centred column per page; the header shares its edges.
 .page {
+  position: relative;
+  z-index: 1;
   margin: 0 auto;
 }
 .index-page {
@@ -133,7 +184,7 @@ a:focus-visible {
 .reading-footer {
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
+  align-items: center;
   gap: 16px;
   font: 400 13px/1.6 var(--mono);
 }
@@ -143,9 +194,15 @@ a:focus-visible {
 }
 
 .site-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
   color: var(--ink);
   font-weight: 500;
   text-decoration: none;
+}
+.dust-tree .index-page .site-header {
+  padding-top: 8px;
 }
 
 .site-nav {
@@ -163,7 +220,7 @@ a:focus-visible {
 
 .site-nav a:hover,
 .reading-footer a:hover {
-  color: var(--ink);
+  color: var(--sage);
 }
 
 // Index: a quiet list grouped by year.
@@ -173,7 +230,7 @@ a:focus-visible {
 
 .year {
   margin: 0 0 8px;
-  color: var(--muted);
+  color: var(--sage);
   font: 400 13px/1.6 var(--mono);
 }
 
@@ -208,9 +265,15 @@ a:focus-visible {
 }
 
 .notes-list a:hover {
-  text-decoration: underline;
+  color: var(--sage);
 }
 
+.reading a {
+  text-decoration-color: rgba(159, 224, 189, .55);
+}
+.reading a:hover {
+  color: var(--sage);
+}
 .empty-notes {
   color: var(--muted);
 }
