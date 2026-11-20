@@ -4,12 +4,22 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{% if page.title %}{{ page.title }} · al.afrani.id{% else %}al.afrani.id · notes{% endif %}</title>
-  <link rel="stylesheet" href="{{ site.baseurl }}/style.css">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230c0f10'/%3E%3Ccircle cx='16' cy='16' r='5' fill='%23dfe4e0'/%3E%3C/svg%3E">
-  <meta name="theme-color" content="#f6f4ef" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#0c0f10" media="(prefers-color-scheme: dark)">
+  <script>
+    // Before first paint: titles wait for their dust only when motion is allowed; the tree's space opens only when WebGL can draw it.
+    (function (d) {
+      var c = d.documentElement.classList;
+      if (!matchMedia("(prefers-reduced-motion: reduce)").matches) c.add("dust-titles");
+      try { if (d.createElement("canvas").getContext("webgl")) c.add("dust-tree"); } catch (e) {}
+    })(document);
+  </script>
+  <link rel="stylesheet" href="{{ site.baseurl }}/style.css?v=2">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230c0f10'/%3E%3Cpath d='M16 26V9M16 15l-5 4M16 12l5 4' stroke='%23cfd6d2' stroke-width='1.6' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
+  <meta name="theme-color" content="#0c0f10">
+  <script src="{{ site.baseurl }}/js/tree-dust.js?v=2" defer></script>
 </head>
 <body>
+  {% if page.url == '/' %}<canvas id="field" aria-hidden="true"></canvas>{% endif %}
+  <canvas id="ink" aria-hidden="true"></canvas>
   <div class="page {% if page.url == '/' %}index-page{% else %}reading-page{% endif %}">
     {{ content }}
   </div>

@@ -28,12 +28,22 @@ default one, so `Gemfile`/`vendor` entries are repeated there defensively.
 
 ## Two hard constraints
 
-1. **No third-party code.** The site ships zero JavaScript and fetches nothing from a third-party
-   origin; fonts are self-hosted in `fonts/`. An earlier revision loaded `polyfill.io`, whose domain
-   was later sold and served malware. Before adding any external `<script>`, `<link>`, or `<img>`,
-   inline or vendor it instead. If it truly must be remote, pin an exact version and add an SRI
-   `integrity` hash. This is why the ZKP post's formulas are hand-written MathML rather than MathJax.
+1. **No third-party code.** The site fetches nothing from a third-party origin: fonts are self-hosted in `fonts/`
+   and the only script is the site's own `js/tree-dust.js`. An earlier revision loaded `polyfill.io`, whose domain
+   was later sold and served malware. Before adding any external `<script>`, `<link>`, or `<img>`, inline or vendor
+   it instead. If it truly must be remote, pin an exact version and add an SRI `integrity` hash. This is why the ZKP
+   post's formulas are hand-written MathML rather than MathJax. (The old "zero JavaScript" rule was lifted on
+   2026-11-20 for the self-hosted dust script only.)
 2. **No plugins.** See above.
+
+## The look
+
+The reading room shares one world with galdr.discoverd.io, discoverd.io and afrani.id: dark always (`#0c0f10` with a
+soft top glow), afrani.id's tree of glowing dust, sage `#9fe0bd` as the accent. `js/tree-dust.js` draws the tree and
+slow embers behind the index, the same tree small and still beside the name on posts, and makes titles (the list and a
+post's title) gather from dust and settle into the real text. A small inline script in `_layouts/default.html` sets
+`dust-titles` (motion allowed) and `dust-tree` (WebGL available) before first paint; without them nothing is hidden,
+and if the script fails, a CSS animation reveals the titles after 2.5 s. Body text is never animated.
 
 ## Architecture
 
