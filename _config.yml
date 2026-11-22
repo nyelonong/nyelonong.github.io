@@ -2,6 +2,7 @@
 name:               "Zaki"
 home:               "~/"
 description:        "daily blog"
+url:                "https://al.afrani.id"
 
 # URL
 baseurl:            ""

@@ -3,6 +3,8 @@ layout: post
 title:  "Yes, I still read the code."
 date:   2026-10-10 15:36:04 +0700
 categories: [learnings]
+description: "If a coding agent writes the patch, do you still read it? Why I read every diff before I accept it, and the small review tool I built for that habit."
+image: /images/still-read-code-diff.png
 ---
 
 *If a coding agent writes the patch, do you still read it?*
@@ -35,7 +37,7 @@ The summary tells me what the agent believes it changed. The diff shows me what 
 
 This is why I still read the patch. I want to understand the decisions hiding inside those short sentences.
 
-Did we solve the problem I asked about? Did we quietly change something else? Is the test checking the behavior I care about, or just confirming the implementation’s own assumptions?
+Did it solve the problem I asked about? Did it quietly change something else? Is the test checking the behavior I care about, or just confirming the implementation’s own assumptions?
 
 Sometimes the patch is perfectly fine. Reading it is how I arrive at that conclusion.
 
@@ -62,9 +64,9 @@ The useful part of delegation is not that I stop thinking. It is that I can spen
 
 ## 3. So I made the review easier to read
 
-While building my review tooling, I kept running into very ordinary problems.
+While building my review tooling (it is now open source as senpai; more at the end), I kept running into very ordinary problems.
 
-The title was hard to read. After scrolling through a long diff, I could lose track of which file I was looking at. The text felt too dense.
+The page title was hard to read. After scrolling through a long diff, I could lose track of which file I was looking at. The text felt too dense.
 
 None of these sounds like a grand engineering problem.
 
@@ -107,7 +109,7 @@ I also want to distinguish between different decisions.
 
 Sometimes the implementation needs a correction. Sometimes the plan itself is wrong. Sometimes I want to cancel the work.
 
-Those are not all different spellings of “no.”
+Those are different decisions, not three ways of saying “no.”
 
 A review should communicate what happens next, not merely record that I disliked something.
 
@@ -141,9 +143,11 @@ It is also not a sandbox against a process with unrestricted write access. It su
 
 ## 6. The tool supports the habit
 
-I built this review surface as **[senpai](https://github.com/nyelonong/senpai)**. It started as task-review inside my own agent setup; it is now its own open-source tool, a single binary you can install with one line.
+I built this review surface as **[senpai](https://github.com/nyelonong/senpai)**. It started inside my own agent setup; it is now its own open-source tool, a single binary you can install with one line.
 
-It presents the actual working-tree change in a local browser, collects annotations and a decision, and records approval against the captured state.
+The agent calls it when it finishes a change and waits until I decide. It presents the actual working-tree change in a local browser, collects annotations and a decision, and records approval against the captured state.
+
+*Updated 22 Nov 2026: the review tool is now open source as senpai.*
 
 The repository has the implementation and usage details. But the tool is not the main point of this post.
 

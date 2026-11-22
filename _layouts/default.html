@@ -15,6 +15,21 @@
   <link rel="stylesheet" href="{{ site.baseurl }}/style.css?v=2">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230c0f10'/%3E%3Cpath d='M16 26V9M16 15l-5 4M16 12l5 4' stroke='%23cfd6d2' stroke-width='1.6' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
   <meta name="theme-color" content="#0c0f10">
+  {%- capture share_title %}{% if page.title %}{{ page.title }}{% else %}al.afrani.id · notes{% endif %}{% endcapture %}
+  {%- capture share_text %}{% if page.description %}{{ page.description }}{% elsif page.excerpt %}{{ page.excerpt | strip_html | normalize_whitespace | truncate: 200 }}{% else %}{{ site.description }}{% endif %}{% endcapture %}
+  <meta name="description" content="{{ share_text | strip | escape }}">
+  <link rel="canonical" href="{{ page.url | absolute_url }}">
+  <meta property="og:site_name" content="al.afrani.id">
+  <meta property="og:type" content="{% if page.date %}article{% else %}website{% endif %}">
+  <meta property="og:title" content="{{ share_title | strip | escape }}">
+  <meta property="og:description" content="{{ share_text | strip | escape }}">
+  <meta property="og:url" content="{{ page.url | absolute_url }}">
+  {%- if page.image %}
+  <meta property="og:image" content="{{ page.image | absolute_url }}">
+  <meta name="twitter:card" content="summary_large_image">
+  {%- else %}
+  <meta name="twitter:card" content="summary">
+  {%- endif %}
   <script src="{{ site.baseurl }}/js/tree-dust.js?v=2" defer></script>
 </head>
 <body>
