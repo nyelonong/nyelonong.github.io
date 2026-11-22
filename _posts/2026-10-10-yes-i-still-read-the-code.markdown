@@ -141,7 +141,7 @@ It is also not a sandbox against a process with unrestricted write access. It su
 
 ## 6. The tool supports the habit
 
-I built this review surface as **task-review**, part of [agent-workflow](https://github.com/nyelonong/agent-workflow).
+I built this review surface as **[senpai](https://github.com/nyelonong/senpai)**. It started as task-review inside my own agent setup; it is now its own open-source tool, a single binary you can install with one line.
 
 It presents the actual working-tree change in a local browser, collects annotations and a decision, and records approval against the captured state.
 
